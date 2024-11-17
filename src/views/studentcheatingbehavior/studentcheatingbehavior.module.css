@@ -1,0 +1,150 @@
+.behaviorCardsContainer {
+  display: flex; /* Use flexbox to arrange cards */
+  justify-content: space-around; /* Space cards evenly */
+  margin: 20px 0;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling if necessary */
+}
+
+.behaviorCard {
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px; /* Make sure each card fills the height */
+  border: solid 1px black;
+  width: 150px;
+  margin-right: 20px;
+}
+
+.behaviorCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.behaviorCard p {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+/* Adding background colors to each behavior type */
+.behaviorCard:nth-child(1) {
+  background-color: #3498db; /* Blue - Face Movement */
+}
+
+.behaviorCard:nth-child(2) {
+  background-color: #e74c3c; /* Red - Multiple People */
+}
+
+.behaviorCard:nth-child(3) {
+  background-color: #f39c12; /* Orange - Shortcut Keys */
+}
+
+.behaviorCard:nth-child(4) {
+  background-color: #2ecc71; /* Green - Smartphone */
+}
+
+.behaviorCard:nth-child(5) {
+  background-color: #9b59b6; /* Purple - Switch Tabs */
+}
+
+.behaviorCard:nth-child(6) {
+  background-color: #34495e; /* Dark Gray - No Person */
+}
+
+.nextandprevious {
+  display: flex; /* Use flexbox to arrange buttons in a row */
+  justify-content: space-between; /* Space buttons evenly across the container */
+  align-items: center; /* Center the buttons vertically */
+  margin: 20px 0; /* Add some margin above and below */
+  width: 100%; /* Make sure the container takes full width for proper spacing */
+}
+
+.paginationButton {
+  background-color: transparent; /* Transparent background */
+  color: #007bff; /* Blue text color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Add padding for better spacing */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex; /* Flexbox to center the image */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  transition: background-color 0.2s, transform 0.2s; /* Smooth background and scaling effect */
+  margin: 0 10px; /* Add margin between buttons */
+}
+
+.paginationButton:hover {
+  background-color: rgba(
+    0,
+    123,
+    255,
+    0.1
+  ); /* Light blue background on hover for better visibility */
+  transform: scale(1.05); /* Scale up slightly on hover */
+}
+
+.paginationIcon {
+  width: 20px; /* Adjust the width of the icon */
+  height: 20px; /* Adjust the height of the icon */
+  margin-right: 5px; /* Space between icon and button text */
+}
+.profilePicContainer {
+  width: 100px; /* Set the desired width */
+  height: 100px; /* Set the desired height */
+  border-radius: 50%; /* Make it circular */
+  overflow: hidden; /* Hide overflow to maintain the circular shape */
+  border: 2px solid #ccc; /* Optional: Add a border */
+  display: flex; /* Center the image */
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+}
+
+.profilePic {
+  width: 100%; /* Image fills the container */
+  height: 100%; /* Image fills the container */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
+.defaultPic {
+  width: 100%; /* Fill the container */
+  height: 100%; /* Fill the container */
+  display: flex; /* Center text */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  font-size: 16px; /* Adjust font size as needed */
+  color: #777; /* Color for the default text */
+  background-color: #f0f0f0; /* Optional: background color for the default pic */
+  border-radius: 50%; /* Keep the default placeholder circular */
+}
+
+.userInfo {
+  display: flex; /* Use flexbox to arrange items in a row */
+  align-items: center; /* Center items vertically */
+  margin: 10px 0; /* Add some vertical margin */
+  justify-content: flex-start; /* Align items to the left */
+}
+
+.profilePicContainer {
+  margin-right: 15px; /* Add space between the profile picture and the text */
+}
+
+.fullname {
+  margin-left: 15px; /* Add some space between the profile picture and the text */
+}
+
+.firstname {
+  line-height: 1;
+}
+
+.lastname {
+  line-height: 1;
+}
+
+.userInfo .fullname p {
+  font-size: 16px;
+  color: black !important; /* Force the font color to be black */
+  line-height: 1;
+  text-align: left;
+}
