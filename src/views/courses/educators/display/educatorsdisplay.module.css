@@ -1,0 +1,89 @@
+.behaviorCardsContainer {
+  display: flex; /* Use flexbox to arrange cards */
+  justify-content: space-around; /* Space cards evenly */
+  margin: 20px 0;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling if necessary */
+}
+
+.behaviorCard {
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px; /* Make sure each card fills the height */
+  border: solid 1px black;
+  width: 150px;
+  margin-right: 20px;
+}
+
+.behaviorCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.behaviorCard p {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+/* Adding background colors to each behavior type */
+.behaviorCard:nth-child(1) {
+  background-color: #3498db; /* Blue - Face Movement */
+}
+
+.behaviorCard:nth-child(2) {
+  background-color: #e74c3c; /* Red - Multiple People */
+}
+
+.behaviorCard:nth-child(3) {
+  background-color: #f39c12; /* Orange - Shortcut Keys */
+}
+
+.behaviorCard:nth-child(4) {
+  background-color: #2ecc71; /* Green - Smartphone */
+}
+
+.behaviorCard:nth-child(5) {
+  background-color: #9b59b6; /* Purple - Switch Tabs */
+}
+
+.behaviorCard:nth-child(6) {
+  background-color: #34495e; /* Dark Gray - No Person */
+}
+.addCourseButton {
+  margin-bottom: 20px; /* Adjust the margin as needed */
+  margin-top: 20px;
+}
+
+.coursesContainer {
+  display: flex;
+  justify-content: center; /* Center on mobile by default */
+  margin: 20px 0; /* Adjust margins as needed */
+}
+
+.coursesGrid {
+  display: flex; /* Use flexbox to arrange cards */
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: center; /* Center items in the grid */
+  gap: 16px; /* Space between cards */
+}
+.title {
+  text-align: left; /* Align text to the left */
+  margin: 0; /* Optional: Remove default margin if necessary */
+  padding: 10px 0; /* Optional: Add some padding for spacing */
+  color: black !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .coursesContainer {
+    justify-content: flex-start; /* Left align on larger screens */
+  }
+
+  .coursesGrid {
+    justify-content: flex-start; /* Align items to the left on larger screens */
+  }
+}

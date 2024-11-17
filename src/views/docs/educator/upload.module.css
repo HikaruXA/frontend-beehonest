@@ -1,0 +1,64 @@
+.uploadContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f7f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.uploadContainer h1 {
+  font-size: 2rem;
+  color: #2a2e35;
+  margin-bottom: 20px;
+}
+
+.uploadContainer p {
+  font-size: 1rem;
+  color: #71757a;
+  margin-bottom: 15px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #3a3e44;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+  width: calc(100% - 24px); /* Ensures balanced padding */
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #d1dae2;
+  border-radius: 6px;
+  background-color: #fafcfd;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 100px;
+}
+
+button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}

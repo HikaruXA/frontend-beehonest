@@ -1,0 +1,103 @@
+.updateCourseContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px; /* Wider than the profile form */
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.courseIDContainer {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.courseImageContainer {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 20px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.courseImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px; /* Ensure it stays rectangular with rounded corners */
+}
+
+.defaultImage {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bbb; /* Fallback color if no image is present */
+  border-radius: 10px;
+}
+
+.form {
+  width: 100%;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px; /* For larger description input */
+}
+
+.fileInput {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.submitButton {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}

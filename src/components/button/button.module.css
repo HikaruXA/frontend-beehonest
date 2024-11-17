@@ -1,0 +1,50 @@
+.button {
+  all: unset; /* Reset all inherited styles */
+  display: inline-block; /* Ensure the button behaves like a block element */
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+  font-size: 1rem; /* Ensure a consistent font size */
+  text-align: center; /* Center align text */
+
+  /* Default styles to ensure button behaves as intended */
+  background-color: transparent; /* Default background */
+  color: inherit; /* Default color */
+}
+
+/* Primary button style */
+.button.primary {
+  background-color: #395dfc; /* Blue */
+  color: white;
+}
+
+.button.primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Add lift effect on hover */
+}
+
+/* Delete button style */
+.button.delete {
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+
+.button.delete:hover {
+  background-color: #c82333; /* Darker red on hover */
+  transform: translateY(-2px); /* Add lift effect on hover */
+}
+
+/* Disabled button styles */
+.button:disabled {
+  background-color: #ccc; /* Gray background for disabled */
+  cursor: not-allowed; /* Change cursor to not-allowed */
+  color: #666; /* Gray text for disabled */
+  transform: none; /* Remove transform effect on disabled */
+  opacity: 0.7; /* Slightly transparent to indicate disabled state */
+}
+
+/* Additional styles for active state */
+.button:active {
+  transform: scale(0.98); /* Slightly shrink on click */
+}

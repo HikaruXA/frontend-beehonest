@@ -1,0 +1,140 @@
+/* Container for the whole side nav */
+.sideNavContainer {
+  height: 100%; /* Full height of the parent container */
+  background-color: #333333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Allow relative positioning */
+  z-index: 100;
+  box-sizing: border-box; /* Include padding in width and height */
+}
+
+.closeButton {
+  background-color: transparent; /* Transparent background */
+  border: none; /* No border */
+  font-size: 24px; /* Adjust size as needed */
+  cursor: pointer; /* Pointer cursor on hover */
+  position: absolute; /* Absolute positioning */
+  top: 10px; /* Distance from the top */
+  left: 10px; /* Distance from the left */
+  z-index: 101; /* Ensure it is above other elements */
+}
+
+/* Adjust side nav width based on the screen size */
+@media (min-width: 769px) {
+  .sideNavContainer {
+    width: 250px; /* Full side nav width for desktop */
+  }
+}
+
+@media (max-width: 768px) {
+  .sideNavContainer {
+    width: 60%; /* Adjust width for tablet/mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  .sideNavContainer {
+    width: 70%; /* Adjust width for smaller mobile screens */
+  }
+}
+
+/* Logo Container */
+.logoContainer {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Ensure padding doesn't affect layout */
+}
+
+/* Ensure the logo is centered */
+.logo {
+  max-width: 50px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Navigation styling */
+.nav {
+  flex-grow: 1; /* Grow to take remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* List reset and styles */
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Nav item */
+.navItem {
+  margin: 10px 0;
+}
+
+/* Ghost button styling */
+.navLink {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px solid transparent; /* Transparent border for ghost effect */
+  background-color: transparent; /* No background */
+  cursor: pointer;
+  width: 100%; /* Ensure the button is full width */
+}
+
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+/* Icon and text styling */
+.icon {
+  margin-right: 10px;
+}
+
+.linkText {
+  font-weight: 500;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .navLink {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
+  .logoContainer {
+    padding: 15px;
+  }
+
+  .logo {
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navLink {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  .logoContainer {
+    padding: 10px;
+  }
+
+  .logo {
+    max-width: 60px;
+  }
+}

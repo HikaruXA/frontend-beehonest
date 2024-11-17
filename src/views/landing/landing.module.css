@@ -1,0 +1,345 @@
+/* Reset margins and padding for body */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.8),
+    rgba(245, 174, 32, 0.886)
+  ); /* Gradient background */
+}
+
+/* Overall container for the landing page */
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+/* Header styling */
+.header {
+  background-color: #eede06;
+  color: black; /* Forces the header text color to black */
+  padding: 20px;
+  position: sticky; /* Makes the header stick to the top */
+  top: 0; /* Sets the position from the top */
+  z-index: 1000; /* Ensures it stays above other content */
+}
+
+/* Navigation styling */
+.nav {
+  display: flex;
+  justify-content: space-between; /* Space between the two nav lists */
+  align-items: center; /* Vertically align the items */
+  flex-wrap: wrap; /* Allows wrapping for responsiveness */
+}
+
+/* Left nav list styling */
+.navListLeft {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap; /* Enable wrapping on smaller screens */
+}
+
+/* Right nav list styling */
+.navListRight {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+/* Existing nav link styling */
+.navLink {
+  color: rgb(0, 0, 0); /* Keep this white for the links */
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+/* Main content area */
+.main {
+  flex: 1;
+}
+
+/* Styling for the landing section */
+.landing {
+  display: flex; /* Use flex to align items horizontally */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space between tagline and image */
+  position: relative; /* Position relative for wave effect */
+  overflow: hidden; /* Hide any overflow */
+}
+
+/* Tagline container styling */
+.taglineContainer {
+  display: flex;
+  flex-direction: column; /* Stack tagline and tagline2 vertically */
+  justify-content: left; /* Align tagline vertically to the top (adjust if needed) */
+  margin-left: 70px;
+}
+
+/* Tagline styling */
+.tagline {
+  color: rgb(0, 0, 0); /* Tagline color */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Ensure no extra space */
+  font-size: 65px;
+  text-align: left;
+  line-height: 1; /* Tightly pack the lines */
+}
+
+.tagline2 {
+  color: rgb(11, 11, 11); /* Subtitle color */
+  text-align: left;
+  margin: 0; /* Remove any default margin */
+  padding: 0; /* Ensure no extra space */
+  line-height: 1; /* Adjust line spacing */
+}
+
+/* Image styling */
+.landingImage img {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+  justify-content: center;
+}
+
+/* Section styling */
+.section {
+  margin: 40px 0;
+  padding-top: 60px; /* Add padding to top to account for the sticky navbar */
+  position: relative; /* Required for anchor scrolling */
+  margin: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.sectionContent {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #eede06;
+  text-align: center;
+  padding: 15px;
+}
+
+.footerText {
+  margin: 0;
+  color: #777;
+}
+
+.contactList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.contactLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contactLink:hover {
+  text-decoration: underline;
+}
+
+/* Container for the services section */
+.servicesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Individual service card styling */
+.serviceCard {
+  background-color: rgba(249, 249, 249, 0.2); /* Transparent background */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  width: calc(25% - 20px); /* 4 cards in a row for desktop */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.serviceCard:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Logo image styling */
+.serviceLogo {
+  width: 60px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Description inside the service card */
+.serviceCard p {
+  font-size: 1rem;
+  color: rgb(52, 52, 52); /* Set font color to black */
+  line-height: 1.5;
+  text-align: center; /* Justify the description text */
+}
+
+/* -------- Media Queries for Responsiveness -------- */
+
+/* Large screens (e.g., laptops/desktops) */
+@media (min-width: 1200px) {
+  .servicesContainer {
+    justify-content: space-between;
+  }
+
+  .serviceCard {
+    width: calc(25% - 20px); /* 4 cards in a row */
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .servicesContainer {
+    justify-content: center;
+  }
+
+  .serviceCard {
+    width: calc(50% - 20px); /* 2 cards in a row */
+  }
+}
+
+/* Small screens (e.g., phones) */
+@media (max-width: 767px) {
+  .landing {
+    flex-direction: column; /* Stack tagline and image vertically */
+    align-items: center; /* Center the items */
+    text-align: center; /* Center text for better readability */
+    padding: 20px; /* Add some padding */
+  }
+
+  .taglineContainer {
+    margin-left: 0; /* Remove left margin for mobile */
+    margin-bottom: 20px; /* Add some space below the tagline */
+  }
+
+  .servicesContainer {
+    justify-content: center; /* Center service cards */
+  }
+
+  .serviceCard {
+    width: calc(100% - 20px); /* 1 card in a row */
+    margin: 10px 0; /* Add margin on top and bottom */
+  }
+
+  /* Adjusting padding and margin for better readability on mobile */
+  .main {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 10px;
+  }
+
+  .navLink {
+    margin: 0 10px; /* Less margin for mobile */
+  }
+
+  .section {
+    margin: 20px 0;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem; /* Slightly smaller titles */
+  }
+
+  .sectionContent {
+    font-size: 0.9rem; /* Slightly smaller content font */
+  }
+
+  /* New styles for tagline on mobile */
+  .tagline {
+    font-size: 40px; /* Smaller font size for mobile */
+  }
+
+  .tagline2 {
+    font-size: 24px; /* Smaller font size for mobile */
+  }
+}
+
+.wave {
+  display: block; /* Make sure it takes the full width */
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  position: relative; /* Position it relative to the landing section */
+  margin-top: -1px; /* Adjust this if needed to remove gaps */
+}
+
+.CardContainer {
+  display: flex;
+  flex-direction: row; /* Align cards horizontally */
+  justify-content: center; /* Center the cards horizontally */
+  gap: 20px; /* Add space between the cards */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Styling for the about card */
+.aboutCard {
+  background-color: rgba(249, 249, 249, 0.2); /* Transparent background */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  max-width: 400px; /* Set a max width */
+  width: 100%; /* Full width in smaller screens */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.aboutCard:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Logo inside the about card */
+.cardLogo {
+  width: 200px; /* Fixed width */
+  height: 150px; /* Fixed height */
+  object-fit: cover; /* Ensures the image fills the container without distortion */
+  margin-bottom: 15px;
+  border-radius: 8px; /* Optional: adds rounded corners to the image */
+}
+
+/* Title inside the about card */
+.cardTitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Description inside the about card */
+.cardDescription {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Footer link styling */
+.footerLink {
+  color: #007bff; /* Blue color for footer links */
+  text-decoration: none; /* Remove underline */
+}
+
+.footerLink:hover {
+  text-decoration: underline; /* Underline on hover */
+}

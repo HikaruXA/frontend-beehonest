@@ -1,0 +1,97 @@
+/* identificationdisplay.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+}
+
+h2 {
+  color: #007bff;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: #555;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+p {
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+/* Force left-align and black font color for question text and case-sensitive info */
+.questionText {
+  text-align: left; /* Force text alignment to left */
+  color: #000; /* Ensure black font color */
+  font-weight: bold; /* Optional: Makes the question bold */
+}
+
+/* Ensure that the case-sensitive text is also aligned left and has a black font */
+.caseSensitiveInfo {
+  text-align: left; /* Left-align case sensitive info */
+  color: #000; /* Black font color */
+  font-weight: normal; /* Normal font weight */
+}
+
+strong {
+  color: #333;
+}
+
+.loading {
+  color: #007bff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.questions-list {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+.questions-list li {
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+}
+
+.floatingDetection {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px; /* Adjust width as needed */
+  height: 240px; /* Adjust height as needed */
+  z-index: 999;
+  border: 2px solid #ccc;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  overflow: hidden;
+  padding: 0; /* Remove padding to ensure content fits */
+}
+
+@media (max-width: 768px) {
+  .floatingDetection {
+    width: 90%; /* Adjust to be responsive */
+    height: auto;
+    right: 5px;
+    bottom: 10px;
+  }
+}

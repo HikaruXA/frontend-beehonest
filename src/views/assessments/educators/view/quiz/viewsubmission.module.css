@@ -1,0 +1,139 @@
+.container {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+}
+
+h1 {
+  font-size: 2rem;
+  color: #2a2e35; /* Dark grayish color for modern titles */
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #4a4e52; /* Subtle dark gray for question headers */
+  margin-top: 20px;
+}
+
+p {
+  font-size: 1rem;
+  color: #333; /* Dark gray for general text */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+}
+
+th,
+td {
+  border: 1px solid #d1dae2; /* Light gray-blue border */
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #eaf4fc; /* Light sky blue */
+  color: #2a2e35; /* Dark gray text */
+}
+
+td {
+  background-color: #fdf3e7; /* Light pastel peach */
+}
+
+tr:nth-child(even) td {
+  background-color: #f5f8fa; /* Light gray-blue for even rows */
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.behaviorCardsContainer {
+  display: flex; /* Use flexbox to arrange cards */
+  justify-content: space-around; /* Space cards evenly */
+  margin: 20px 0;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling if necessary */
+}
+
+.behaviorCard {
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px; /* Make sure each card fills the height */
+  border: solid 1px black;
+  width: 150px;
+  margin-right: 20px;
+}
+
+.behaviorCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.behaviorCard p {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+/* Adding background colors to each behavior type */
+.behaviorCard:nth-child(1) {
+  background-color: #3498db; /* Blue - Face Movement */
+}
+
+.behaviorCard:nth-child(2) {
+  background-color: #e74c3c; /* Red - Multiple People */
+}
+
+.behaviorCard:nth-child(3) {
+  background-color: #f39c12; /* Orange - Shortcut Keys */
+}
+
+.behaviorCard:nth-child(4) {
+  background-color: #2ecc71; /* Green - Smartphone */
+}
+
+.behaviorCard:nth-child(5) {
+  background-color: #9b59b6; /* Purple - Switch Tabs */
+}
+
+.behaviorCard:nth-child(6) {
+  background-color: #34495e; /* Dark Gray - No Person */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem; /* Smaller title font on mobile */
+  }
+
+  h2 {
+    font-size: 1.25rem; /* Smaller header font on mobile */
+  }
+
+  p {
+    font-size: 0.9rem; /* Smaller paragraph font on mobile */
+  }
+
+  .table {
+    display: block; /* Allow the table to scroll */
+    overflow-x: auto; /* Horizontal scrolling */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  th,
+  td {
+    padding: 8px; /* Adjust padding for smaller screens */
+    font-size: 0.9rem; /* Adjust font size */
+  }
+}
+.title {
+  color: black !important;
+}
