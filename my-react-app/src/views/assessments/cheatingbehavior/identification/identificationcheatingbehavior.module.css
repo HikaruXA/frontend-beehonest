@@ -1,0 +1,309 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.info {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin: 20px 0;
+  text-align: left;
+  color: #444;
+}
+
+.combinedContainer {
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: space-between; /* Space out the items */
+  margin: 20px 0; /* Add vertical margin */
+}
+
+.chartContainer {
+  flex: 1; /* Allow the chart to grow */
+  margin-right: 20px; /* Space between chart and summary */
+}
+
+.behaviorSummary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Ensure 3 columns */
+  gap: 20px;
+  align-items: stretch; /* Make sure all items stretch to the height */
+  margin-bottom: 30px;
+  flex: 1; /* Allow the behavior summary to grow */
+}
+
+.behaviorCard {
+  padding: 15px; /* Slightly reduce padding to give text more space */
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100px; /* Maintain fixed height */
+  border: solid 1px black;
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Truncate text with ellipses */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.behaviorCard h3 {
+  font-size: 1rem; /* Slightly smaller heading */
+  margin-bottom: 5px; /* Adjust spacing */
+  line-height: 1.2; /* Control line height */
+  color: black;
+}
+
+.behaviorCard p {
+  font-size: 0.9rem; /* Adjust paragraph font size */
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* Adding background colors to each behavior type */
+.behaviorCard:nth-child(1) {
+  background-color: #3498db; /* Blue - Face Movement */
+}
+
+.behaviorCard:nth-child(2) {
+  background-color: #e74c3c; /* Red - Multiple People */
+}
+
+.behaviorCard:nth-child(3) {
+  background-color: #f39c12; /* Orange - Shortcut Keys */
+}
+
+.behaviorCard:nth-child(4) {
+  background-color: #2ecc71; /* Green - Smartphone */
+}
+
+.behaviorCard:nth-child(5) {
+  background-color: #9b59b6; /* Purple - Switch Tabs */
+}
+
+.behaviorCard:nth-child(6) {
+  background-color: #34495e; /* Dark Gray - No Person */
+}
+
+.filterLabel {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.filterSelect {
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.behaviorTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.behaviorTable th,
+.behaviorTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.behaviorTable th {
+  background-color: #f2f2f2;
+}
+
+.noBehaviors {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+}
+
+.loading,
+.error {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #f00;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .combinedContainer {
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .chartContainer {
+    margin-right: 0; /* Remove right margin for mobile */
+    margin-bottom: 20px; /* Add space below the chart */
+  }
+
+  .behaviorSummary {
+    grid-template-columns: 1fr; /* Stack behavior cards */
+  }
+
+  .title {
+    font-size: 2rem; /* Smaller title font */
+  }
+
+  .subtitle {
+    font-size: 1.5rem; /* Smaller subtitle font */
+  }
+
+  .behaviorCard {
+    padding: 15px; /* Adjust padding for cards */
+  }
+
+  .behaviorCard h3 {
+    font-size: 1.1rem; /* Smaller heading size */
+  }
+
+  .behaviorCard p {
+    font-size: 0.9rem; /* Smaller paragraph size */
+  }
+
+  .filterLabel {
+    font-size: 0.9rem; /* Smaller filter label */
+  }
+
+  .filterSelect {
+    font-size: 0.9rem; /* Smaller filter select */
+  }
+
+  .info,
+  .noBehaviors {
+    font-size: 0.9rem; /* Smaller text for info and no behaviors message */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem; /* Further reduce title size */
+  }
+
+  .subtitle {
+    font-size: 1.2rem; /* Further reduce subtitle size */
+  }
+
+  .behaviorCard {
+    height: auto; /* Allow height to adjust */
+  }
+}
+.analyticsContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: space-between; /* Space items evenly */
+  margin: 20px 0;
+}
+
+.analyticsCard {
+  flex: 1 1 calc(30% - 20px); /* Responsive cards with margin */
+  margin: 10px;
+  padding: 15px;
+  background-color: rgba(
+    245,
+    245,
+    245,
+    0.9
+  ); /* Light background for better visibility */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.profilePicContainer {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden; /* Ensures the image doesn't overflow the container */
+  display: flex; /* Center the image */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  border: 2px solid #3498db; /* Optional: Add a border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.profilePic {
+  width: 100%; /* Fill the width of the container */
+  height: 100%; /* Fill the height of the container */
+  object-fit: cover; /* Ensures the image covers the container */
+}
+.combineduserinfo {
+  display: flex; /* Align children horizontally */
+  align-items: center; /* Center vertically */ /* Space between the elements */
+}
+.combineduserinfo .firstname {
+  text-align: left;
+  color: black !important;
+  line-height: 1;
+}
+.combineduserinfo .lastname {
+  text-align: left;
+  color: black !important;
+  line-height: 1;
+}
+
+.cheatinginfo .mostCommon {
+  text-align: left;
+  color: black !important;
+}
+.cheatinginfo .leastCommon {
+  text-align: left;
+  color: black !important;
+}
+.first {
+  flex: 1; /* Allow this section to grow */
+}
+
+.second {
+  flex: 2; /* Allow this section to grow more */
+}
+
+.cheatinginfo p {
+  margin: 0; /* Remove margin for better spacing */
+}
+.pagination {
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space out buttons evenly */
+  align-items: center; /* Center buttons vertically */
+  margin: 20px 0; /* Add vertical margin */
+}
+
+.pagination button {
+  padding: 5px 10px; /* Reduce padding for smaller buttons */
+  border-radius: 5px; /* Rounded corners */
+  background-color: transparent; /* Transparent background */
+  color: #007bff; /* Blue text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth color change and scaling effect */
+  margin: 0; /* Remove margin between buttons */
+  font-size: 14px; /* Smaller font size */
+}
+
+.pagination button:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+  transform: scale(1.05); /* Scale up slightly on hover */
+}
+
+.paginationIcon {
+  width: 20px; /* Adjust the width of the icon */
+  height: 20px; /* Adjust the height of the icon */
+  margin-right: 5px; /* Space between icon and button text */
+}
+
+.pagination span {
+  font-size: 16px; /* Font size for page info */
+  color: #333; /* Text color for page info */
+  margin: 0 10px; /* Space between span and buttons */
+}

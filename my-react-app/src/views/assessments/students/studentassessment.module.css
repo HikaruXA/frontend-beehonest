@@ -1,0 +1,32 @@
+.courseinfo {
+  padding: 30px; /* Add space inside the container */
+  border-radius: 12px; /* Smooth rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: box-shadow 0.3s ease; /* Animation effect on hover */
+  margin-bottom: 20px; /* Spacing below the card */
+}
+
+/* Hover effect to make the container pop */
+.courseinfo:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}
+
+/* Title Styling */
+.title {
+  font-family: "Arial", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333; /* Slightly softer black for modern look */
+  margin-bottom: 10px; /* Add space between title and description */
+  text-align: left;
+}
+
+/* Description Styling */
+.description {
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  color: #555; /* Softer black for readability */
+  line-height: 1.6; /* More spacing between lines for better readability */
+  margin-bottom: 20px; /* Add space below the description */
+  text-align: left;
+}
