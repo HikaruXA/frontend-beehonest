@@ -57,8 +57,8 @@ const Landing = () => {
             <img
               src="/logo/bee.webp"
               alt="Use of Smartphone Detection"
-              width="200"
-              height="150"
+              width="400"
+              height="300"
             />
           </div>
         </div>
