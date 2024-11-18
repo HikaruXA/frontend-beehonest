@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Button.module.css"; // Importing CSS module
+import styles from "./button.module.css"; // Importing CSS module
 
 const Button = ({ variant = "primary", label, onClick, disabled }) => {
   return (

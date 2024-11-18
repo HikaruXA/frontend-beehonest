@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Card.module.css"; // Importing CSS module
+import styles from "./card.module.css"; // Importing CSS module
 
 const Card = ({
   title,
