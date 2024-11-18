@@ -124,3 +124,6 @@
 .submitButton:hover {
   background-color: #218838; /* Darker green on hover */
 }
+.removeButton {
+  background-color: rgb(153, 0, 0);
+}
