@@ -54,12 +54,7 @@ const Landing = () => {
             </p>
           </div>
           <div className={styles.landingImage}>
-            <img
-              src="/logo/bee.webp"
-              alt="Use of Smartphone Detection"
-              width="400"
-              height="300"
-            />
+            <img src="/logo/bee.webp" alt="Use of Smartphone Detection" />
           </div>
         </div>
 
