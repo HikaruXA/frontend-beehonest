@@ -67,6 +67,8 @@ const Landing = () => {
               <img
                 src="/logo/object detection.webp" // Add your logo image here
                 alt="About Us Logo"
+                width="200" // Set width
+                height="150" // Set height
                 className={styles.cardLogo}
               />
               <h3 className={styles.cardTitle}>Object Detection</h3>
@@ -81,6 +83,8 @@ const Landing = () => {
               <img
                 src="/logo/face detection.webp" // Add your logo image here
                 alt="About Us Logo"
+                width="200" // Set width
+                height="150" // Set height
                 className={styles.cardLogo}
               />
               <h3 className={styles.cardTitle}>Face Detection</h3>
