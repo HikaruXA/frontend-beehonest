@@ -18,7 +18,9 @@ function Viewsubmission({ userID: propUserID, courseID: propCourseID, mcqID }) {
 
   useEffect(() => {
     // Fetch respondents for the specific assessmentID (MCQ ID)
-    fetch(`http://localhost:8081/mcqrespondents?mcqID=${assessmentID}`)
+    fetch(
+      `https://backend-bhonest-a110b63abc0c.herokuapp.com/mcqrespondents?mcqID=${assessmentID}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

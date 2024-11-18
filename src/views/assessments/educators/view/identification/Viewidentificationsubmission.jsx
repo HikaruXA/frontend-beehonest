@@ -19,7 +19,7 @@ function Viewidentificationsubmission({
   useEffect(() => {
     if (propIdentificationID) {
       fetch(
-        `http://localhost:8081/identificationrespondents?identificationID=${propIdentificationID}`
+        `https://backend-bhonest-a110b63abc0c.herokuapp.com/identificationrespondents?identificationID=${propIdentificationID}`
       )
         .then((res) => res.json())
         .then((data) => {
