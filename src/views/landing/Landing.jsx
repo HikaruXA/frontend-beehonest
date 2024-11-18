@@ -70,8 +70,8 @@ const Landing = () => {
               <img
                 src="/logo/object detection.webp"
                 alt="About Us Logo"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.cardLogo}
               />
               <h3 className={styles.cardTitle}>Object Detection</h3>
@@ -86,8 +86,8 @@ const Landing = () => {
               <img
                 src="/logo/face detection.webp"
                 alt="About Us Logo"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.cardLogo}
               />
               <h3 className={styles.cardTitle}>Face Detection</h3>
@@ -112,8 +112,8 @@ const Landing = () => {
               <img
                 src="/logo/smartphone.svg"
                 alt="Use of Smartphone Detection"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>Use of Smartphone</h3>
@@ -123,8 +123,8 @@ const Landing = () => {
               <img
                 src="/logo/multiplepeople.svg"
                 alt="Multiple People Detection"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>Multiple People</h3>
@@ -134,8 +134,8 @@ const Landing = () => {
               <img
                 src="/logo/copy.svg"
                 alt="Copy and Paste Detection"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>Shortcut Keys</h3>
@@ -145,8 +145,8 @@ const Landing = () => {
               <img
                 src="/logo/ghost.svg"
                 alt="No Person Detected"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>No person</h3>
@@ -158,8 +158,8 @@ const Landing = () => {
               <img
                 src="/logo/emoji.svg"
                 alt="Not looking at the front"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>Face Movement</h3>
@@ -171,8 +171,8 @@ const Landing = () => {
               <img
                 src="/logo/tabs.svg"
                 alt="Switch tabs"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3>Switch Tabs</h3>
@@ -195,8 +195,8 @@ const Landing = () => {
               <img
                 src="/logo/professor.svg"
                 alt="Switch tabs"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3 className={styles.cardTitle}>Educator Demonstration</h3>
@@ -212,8 +212,8 @@ const Landing = () => {
               <img
                 src="/logo/student.svg"
                 alt="Switch tabs"
-                width="200"
-                height="150"
+                width="150"
+                height="100"
                 className={styles.serviceLogo}
               />
               <h3 className={styles.cardTitle}>Student Demonstration</h3>
