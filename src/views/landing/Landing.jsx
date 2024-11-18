@@ -54,7 +54,7 @@ const Landing = () => {
             </p>
           </div>
           <div className={styles.landingImage}>
-            <img src="/logo/bee.png" alt="Use of Smartphone Detection" />
+            <img src="/logo/bee.webp" alt="Use of Smartphone Detection" />
           </div>
         </div>
 
@@ -65,7 +65,7 @@ const Landing = () => {
           <div className={styles.CardContainer}>
             <div className={styles.aboutCard}>
               <img
-                src="/logo/object detection.png" // Add your logo image here
+                src="/logo/object detection.webp" // Add your logo image here
                 alt="About Us Logo"
                 className={styles.cardLogo}
               />
@@ -79,7 +79,7 @@ const Landing = () => {
             </div>
             <div className={styles.aboutCard}>
               <img
-                src="/logo/face detection.png" // Add your logo image here
+                src="/logo/face detection.webp" // Add your logo image here
                 alt="About Us Logo"
                 className={styles.cardLogo}
               />
