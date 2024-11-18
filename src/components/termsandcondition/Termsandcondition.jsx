@@ -137,18 +137,6 @@ function Termsandcondition() {
           </div>
           <hr />
           <div className={styles.subtitle}>
-            <h2>8. Governing Law</h2>
-          </div>
-          <div className={styles.subdescription}>
-            <p>
-              These Terms shall be governed by and construed in accordance with
-              the laws of [Your Jurisdiction]. Any disputes arising from or
-              relating to these Terms shall be resolved in the competent courts
-              of [Your Jurisdiction].
-            </p>
-          </div>
-          <hr />
-          <div className={styles.subtitle}>
             <h2>9. Contact Information</h2>
           </div>
           <div className={styles.subdescription}>
