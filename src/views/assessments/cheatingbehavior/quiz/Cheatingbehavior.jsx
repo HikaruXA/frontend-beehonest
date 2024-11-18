@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import styles from "./Cheatingbehavior.module.css";
+import styles from "./cheatingbehavior.module.css";
 
 // Register the components
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
