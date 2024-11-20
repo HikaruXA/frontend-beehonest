@@ -43,15 +43,15 @@ function StudentLayout() {
   }, [location.state, navigate]);
 
   useEffect(() => {
+    // Only fetch the role if the userID is set
     if (userID !== null) {
-      // Fetch user details including roleID from the backend
       axios
         .get(`/user/${userID}`) // Make a request to the /user/:userID endpoint
         .then((response) => {
           const { userInfo } = response.data;
           setRoleID(userInfo.roleID); // Set the roleID from the response
 
-          // If roleID is "educator", navigate to login page
+          // If roleID is "educator", redirect to login page
           if (userInfo.roleID === "educator") {
             localStorage.removeItem("userID");
             navigate("/login"); // Redirect if the user is an educator
@@ -63,7 +63,7 @@ function StudentLayout() {
           navigate("/login"); // Navigate to login on error
         });
     }
-  }, [userID, navigate]);
+  }, [userID, navigate]); // Run this effect when userID changes
 
   // Function to handle course card click (to view assessments for the course)
   const handleCardClick = (courseID) => {
@@ -103,9 +103,9 @@ function StudentLayout() {
     setIsSidenavVisible((prev) => !prev); // Toggle sidenav visibility
   };
 
-  // Ensure that userID is not null before rendering dependent components
+  // Ensure that userID and roleID are both available before rendering
   if (userID === null || roleID === null) {
-    return null; // You could return a loading indicator here if desired
+    return <div>Loading...</div>; // Render loading indicator until both are available
   }
 
   return (
