@@ -48,10 +48,12 @@ function StudentLayout() {
     fetch(`/user/${userID}`)
       .then((response) => response.json())
       .then((data) => {
+        // Only trigger login redirection if the user is an educator
         if (data.success && data.userInfo.roleID === "educator") {
-          // Clear the userID from localStorage before redirecting to login if the user is an educator
-          localStorage.removeItem("userID");
-          navigate("/login"); // Redirect to login page if the user is an educator
+          localStorage.removeItem("userID"); // Clear userID from localStorage
+          if (roleID !== "educator") {
+            navigate("/login"); // Only navigate if we are not already redirecting
+          }
         } else {
           setRoleID(data.userInfo.roleID); // Set roleID if the user is not an educator
         }
