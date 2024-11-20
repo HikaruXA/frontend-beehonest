@@ -1,4 +1,3 @@
-/* ConfirmationModal.module.css */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -20,24 +19,28 @@
 }
 
 .buttonContainer {
+  display: flex; /* Flex layout for buttons */
+  justify-content: space-between; /* Ensures buttons are spaced evenly */
+  gap: 10px; /* Adds spacing between the buttons */
   margin-top: 20px;
 }
 
-.confirmButton {
+.confirmButton,
+.cancelButton {
+  flex: 1; /* Makes each button take up equal width */
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px; /* Spacing between buttons */
 }
 
 .cancelButton {
   background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+}
+
+.confirmButton:hover,
+.cancelButton:hover {
+  opacity: 0.9; /* Optional hover effect */
 }
