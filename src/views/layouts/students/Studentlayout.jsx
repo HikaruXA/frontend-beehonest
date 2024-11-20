@@ -1,19 +1,20 @@
-// Import necessary modules and components
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLocation, useNavigate } from "react-router-dom";
 import SideNav from "../../../components/sidenav/Sidenav";
 import StudentDisplay from "../../courses/students/Studentsdisplay";
 import StudentAssessment from "../../assessments/students/Studentassessment";
-import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior"; // Import the cheating behavior component
-import Profile from "../../profile/Profile"; // Import Profile for the student's view
+import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior";
+import Profile from "../../profile/Profile";
 import styles from "./studentlayout.module.css";
+import axios from "axios"; // Import axios for making HTTP requests
 
 function StudentLayout() {
   const location = useLocation();
   const navigate = useNavigate(); // Hook to navigate to landing page
 
-  // Initialize userID as null
+  // Initialize userID and roleID as null
   const [userID, setUserID] = useState(null);
+  const [roleID, setRoleID] = useState(null); // Track the user's role
   const [selectedCourseID, setSelectedCourseID] = useState(null); // Track selected course
   const [currentView, setCurrentView] = useState("courses"); // Track current view (either 'display' or 'assessment')
   const [isSidenavVisible, setIsSidenavVisible] = useState(false); // State for sidenav visibility
@@ -37,9 +38,32 @@ function StudentLayout() {
       setUserID(location.state.userID);
     } else {
       // Redirect or handle the case when userID is not available
-      navigate("/login"); // Redirect to a login page or handle appropriately
+      navigate("/login"); // Redirect to login page if userID is not found
     }
   }, [location.state, navigate]);
+
+  useEffect(() => {
+    // Only fetch the role if the userID is set
+    if (userID !== null) {
+      axios
+        .get(`/user/${userID}`) // Make a request to the /user/:userID endpoint
+        .then((response) => {
+          const { userInfo } = response.data;
+          setRoleID(userInfo.roleID); // Set the roleID from the response
+
+          // If roleID is "educator", redirect to login page
+          if (userInfo.roleID === "educator") {
+            localStorage.removeItem("userID");
+            navigate("/login"); // Redirect if the user is an educator
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
+          localStorage.removeItem("userID");
+          navigate("/login"); // Navigate to login on error
+        });
+    }
+  }, [userID, navigate]); // Run this effect when userID changes
 
   // Function to handle course card click (to view assessments for the course)
   const handleCardClick = (courseID) => {
@@ -79,9 +103,9 @@ function StudentLayout() {
     setIsSidenavVisible((prev) => !prev); // Toggle sidenav visibility
   };
 
-  // Ensure that userID is not null before rendering dependent components
-  if (userID === null) {
-    return null; // You could return a loading indicator here if desired
+  // Ensure that userID and roleID are both available before rendering
+  if (userID === null || roleID === null) {
+    return <div>Loading...</div>; // Render loading indicator until both are available
   }
 
   return (
@@ -99,7 +123,7 @@ function StudentLayout() {
           menuItems={menuItems}
           logo={logo}
           onMenuItemClick={handleMenuClick}
-          onClose={toggleSidenav} // Pass the close handler to SideNav
+          onClose={toggleSidenav} // Pass the close handler
         />
       </div>
 
@@ -132,7 +156,7 @@ function StudentLayout() {
         )}
 
         {currentView === "profile" && (
-          <Profile userID={userID} /> // Reuse the Profile component from EducatorLayout
+          <Profile userID={userID} /> // Pass userID as a prop to Profile
         )}
       </div>
     </div>
