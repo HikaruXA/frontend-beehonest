@@ -12,8 +12,9 @@ function StudentLayout() {
   const location = useLocation();
   const navigate = useNavigate(); // Hook to navigate to landing page
 
-  // Initialize userID as null
+  // Initialize userID and roleID as null
   const [userID, setUserID] = useState(null);
+  const [roleID, setRoleID] = useState(null); // Track the user's role
   const [selectedCourseID, setSelectedCourseID] = useState(null); // Track selected course
   const [currentView, setCurrentView] = useState("courses"); // Track current view (either 'display' or 'assessment')
   const [isSidenavVisible, setIsSidenavVisible] = useState(false); // State for sidenav visibility
@@ -32,14 +33,34 @@ function StudentLayout() {
     const storedUserID = localStorage.getItem("userID");
     if (storedUserID) {
       setUserID(storedUserID);
+      fetchUserRole(storedUserID); // Fetch user role if userID exists
     } else if (location.state?.userID) {
       localStorage.setItem("userID", location.state.userID);
       setUserID(location.state.userID);
+      fetchUserRole(location.state.userID); // Fetch user role if userID exists in location state
     } else {
       // Redirect or handle the case when userID is not available
       navigate("/login"); // Redirect to a login page or handle appropriately
     }
   }, [location.state, navigate]);
+
+  // Function to fetch the role of the user
+  const fetchUserRole = (userID) => {
+    fetch(`/user/${userID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success && data.userInfo.roleID === "educator") {
+          // If the roleID is "educator", redirect to login
+          navigate("/login");
+        } else {
+          setRoleID(data.userInfo.roleID); // Set roleID if the user is not an educator
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user role:", error);
+        navigate("/login"); // Handle error by redirecting to login page
+      });
+  };
 
   // Function to handle course card click (to view assessments for the course)
   const handleCardClick = (courseID) => {
