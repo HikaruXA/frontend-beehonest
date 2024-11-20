@@ -8,6 +8,7 @@ import CreateIdentification from "../../identification/educators/create/Createid
 import Profile from "../../profile/Profile";
 import CreateQuiz from "../../quizzes/educators/create/Createquiz"; // Assuming this import is needed
 import styles from "./educatorlayout.module.css";
+import axios from "axios"; // Import axios for making HTTP requests
 
 function EducatorLayout() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function EducatorLayout() {
 
   // Initialize userID as null
   const [userID, setUserID] = useState(null);
+  const [roleID, setRoleID] = useState(null); // State to store the roleID
 
   useEffect(() => {
     // Check for userID in localStorage or location state
@@ -29,6 +31,27 @@ function EducatorLayout() {
       navigate("/login"); // Redirect to a login page or handle appropriately
     }
   }, [location.state, navigate]);
+
+  useEffect(() => {
+    if (userID !== null) {
+      // Fetch user details including roleID from the backend
+      axios
+        .get(`/user/${userID}`) // Make a request to the /user/:userID endpoint
+        .then((response) => {
+          const { userInfo } = response.data;
+          setRoleID(userInfo.roleID); // Set the roleID from the response
+
+          // If roleID is "student", navigate to login page
+          if (userInfo.roleID === "student") {
+            navigate("/login");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
+          navigate("/login"); // Navigate to login on error
+        });
+    }
+  }, [userID, navigate]); // Run this effect when userID changes
 
   const [selectedCourseID, setSelectedCourseID] = useState(null);
   const [currentView, setCurrentView] = useState("courses");
@@ -98,7 +121,7 @@ function EducatorLayout() {
   };
 
   // Ensure that userID is not null before rendering dependent components
-  if (userID === null) {
+  if (userID === null || roleID === null) {
     return null; // You could return a loading indicator here if desired
   }
 
