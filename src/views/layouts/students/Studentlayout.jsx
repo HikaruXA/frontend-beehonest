@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLocation, useNavigate } from "react-router-dom";
 import SideNav from "../../../components/sidenav/Sidenav";
 import StudentDisplay from "../../courses/students/Studentsdisplay";
 import StudentAssessment from "../../assessments/students/Studentassessment";
-import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior"; // Import the cheating behavior component
-import Profile from "../../profile/Profile"; // Import Profile for the student's view
+import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior";
+import Profile from "../../profile/Profile";
 import styles from "./studentlayout.module.css";
+import axios from "axios"; // Import axios for making HTTP requests
 
 function StudentLayout() {
   const location = useLocation();
@@ -32,38 +33,37 @@ function StudentLayout() {
     const storedUserID = localStorage.getItem("userID");
     if (storedUserID) {
       setUserID(storedUserID);
-      fetchUserRole(storedUserID); // Fetch user role if userID exists
     } else if (location.state?.userID) {
       localStorage.setItem("userID", location.state.userID);
       setUserID(location.state.userID);
-      fetchUserRole(location.state.userID); // Fetch user role if userID exists in location state
     } else {
       // Redirect or handle the case when userID is not available
-      navigate("/login"); // Redirect to a login page or handle appropriately
+      navigate("/login"); // Redirect to login page if userID is not found
     }
   }, [location.state, navigate]);
 
-  // Function to fetch the role of the user
-  const fetchUserRole = (userID) => {
-    fetch(`/user/${userID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Only trigger login redirection if the user is an educator
-        if (data.success && data.userInfo.roleID === "educator") {
-          localStorage.removeItem("userID"); // Clear userID from localStorage
-          if (roleID !== "educator") {
-            navigate("/login"); // Only navigate if we are not already redirecting
+  useEffect(() => {
+    if (userID !== null) {
+      // Fetch user details including roleID from the backend
+      axios
+        .get(`/user/${userID}`) // Make a request to the /user/:userID endpoint
+        .then((response) => {
+          const { userInfo } = response.data;
+          setRoleID(userInfo.roleID); // Set the roleID from the response
+
+          // If roleID is "educator", navigate to login page
+          if (userInfo.roleID === "educator") {
+            localStorage.removeItem("userID");
+            navigate("/login"); // Redirect if the user is an educator
           }
-        } else {
-          setRoleID(data.userInfo.roleID); // Set roleID if the user is not an educator
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user role:", error);
-        localStorage.removeItem("userID"); // Clear userID from localStorage on error
-        navigate("/login"); // Handle error by redirecting to login page
-      });
-  };
+        })
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
+          localStorage.removeItem("userID");
+          navigate("/login"); // Navigate to login on error
+        });
+    }
+  }, [userID, navigate]);
 
   // Function to handle course card click (to view assessments for the course)
   const handleCardClick = (courseID) => {
@@ -104,7 +104,7 @@ function StudentLayout() {
   };
 
   // Ensure that userID is not null before rendering dependent components
-  if (userID === null) {
+  if (userID === null || roleID === null) {
     return null; // You could return a loading indicator here if desired
   }
 
@@ -123,7 +123,7 @@ function StudentLayout() {
           menuItems={menuItems}
           logo={logo}
           onMenuItemClick={handleMenuClick}
-          onClose={toggleSidenav} // Pass the close handler to SideNav
+          onClose={toggleSidenav} // Pass the close handler
         />
       </div>
 
@@ -156,7 +156,7 @@ function StudentLayout() {
         )}
 
         {currentView === "profile" && (
-          <Profile userID={userID} /> // Reuse the Profile component from EducatorLayout
+          <Profile userID={userID} /> // Pass userID as a prop to Profile
         )}
       </div>
     </div>
