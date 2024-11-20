@@ -1,4 +1,3 @@
-// Import necessary modules and components
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 import SideNav from "../../../components/sidenav/Sidenav";
@@ -50,14 +49,16 @@ function StudentLayout() {
       .then((response) => response.json())
       .then((data) => {
         if (data.success && data.userInfo.roleID === "educator") {
-          // If the roleID is "educator", redirect to login
-          navigate("/login");
+          // Clear the userID from localStorage before redirecting to login if the user is an educator
+          localStorage.removeItem("userID");
+          navigate("/login"); // Redirect to login page if the user is an educator
         } else {
           setRoleID(data.userInfo.roleID); // Set roleID if the user is not an educator
         }
       })
       .catch((error) => {
         console.error("Error fetching user role:", error);
+        localStorage.removeItem("userID"); // Clear userID from localStorage on error
         navigate("/login"); // Handle error by redirecting to login page
       });
   };

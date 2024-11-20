@@ -43,11 +43,13 @@ function EducatorLayout() {
 
           // If roleID is "student", navigate to login page
           if (userInfo.roleID === "student") {
+            localStorage.removeItem("userID");
             navigate("/login");
           }
         })
         .catch((error) => {
           console.error("Error fetching user info:", error);
+          localStorage.removeItem("userID");
           navigate("/login"); // Navigate to login on error
         });
     }
