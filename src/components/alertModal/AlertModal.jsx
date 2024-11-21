@@ -8,7 +8,9 @@ const AlertModal = ({ message, onClose }) => {
       <div className={styles.modalContent}>
         <h2>Alert</h2>
         <p>{message}</p>
-        <button onClick={onClose}>Close</button>
+        <button onClick={onClose} className="button">
+          Close
+        </button>
       </div>
     </div>
   );

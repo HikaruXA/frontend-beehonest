@@ -20,7 +20,7 @@
   width: 300px; /* Set a width for the modal */
 }
 
-button {
+.button {
   background-color: #007bff; /* Blue background for the button */
   color: white;
   border: none;
