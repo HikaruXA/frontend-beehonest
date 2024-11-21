@@ -211,28 +211,28 @@ function Studentcheatingbehavior({ userID }) {
       {/* Behavior Cards */}
       <div className={styles.behaviorCardsContainer}>
         <div className={styles.behaviorCard}>
-          <h3>Face Movement</h3>
-          <p>Total: {totalBehaviorCounts.faceMovement}</p>
+          <p className={styles.total}>{totalBehaviorCounts.faceMovement}</p>
+          <p className={styles.type}>Face Movement</p>
         </div>
         <div className={styles.behaviorCard}>
-          <h3>Multiple People</h3>
-          <p>Total: {totalBehaviorCounts.multiplePeople}</p>
+          <p className={styles.total}>{totalBehaviorCounts.multiplePeople}</p>
+          <p className={styles.type}>Multiple People</p>
         </div>
         <div className={styles.behaviorCard}>
-          <h3>Shortcut Keys</h3>
-          <p>Total: {totalBehaviorCounts.shortcutKeys}</p>
+          <p className={styles.total}>{totalBehaviorCounts.shortcutKeys}</p>
+          <p className={styles.type}>Shortcut Keys</p>
         </div>
         <div className={styles.behaviorCard}>
-          <h3>Smartphone</h3>
-          <p>Total: {totalBehaviorCounts.smartphone}</p>
+          <p className={styles.total}>{totalBehaviorCounts.smartphone}</p>
+          <p className={styles.type}>Smartphone</p>
         </div>
         <div className={styles.behaviorCard}>
-          <h3>Switch Tabs</h3>
-          <p>Total: {totalBehaviorCounts.switchTabs}</p>
+          <p className={styles.total}>{totalBehaviorCounts.switchTabs}</p>
+          <p className={styles.type}>Switch Tabs</p>
         </div>
         <div className={styles.behaviorCard}>
-          <h3>No Person</h3>
-          <p>Total: {totalBehaviorCounts.noPerson}</p>
+          <p className={styles.total}> {totalBehaviorCounts.noPerson}</p>
+          <p className={styles.type}>No Person</p>
         </div>
       </div>
 

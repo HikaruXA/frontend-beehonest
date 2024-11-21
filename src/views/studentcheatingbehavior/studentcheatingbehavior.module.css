@@ -18,15 +18,19 @@
   margin-right: 20px;
 }
 
-.behaviorCard h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+.behaviorCard .total {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: bolder;
   color: black;
+  text-align: center;
 }
 
-.behaviorCard p {
+.behaviorCard .type {
   font-size: 1rem;
   color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 1;
 }
 
 /* Adding background colors to each behavior type */

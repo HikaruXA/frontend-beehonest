@@ -152,8 +152,8 @@ function EducatorsDisplay({ userID, onCardClick, onAddCourseClick }) {
         {cheatingCounts.length > 0 ? (
           cheatingCounts.map((behavior, index) => (
             <div key={index} className={styles.behaviorCard}>
-              <h3>{behavior.cheatingType}</h3>
-              <p>{behavior.totalOccurrences}</p>
+              <p className={styles.total}>{behavior.totalOccurrences}</p>
+              <p className={styles.type}>{behavior.cheatingType}</p>
             </div>
           ))
         ) : (
