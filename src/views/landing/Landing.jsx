@@ -232,7 +232,7 @@ const Landing = () => {
             If you have any questions or would like to know more about our
             services, please reach out to us. You can contact us via email:
             <br></br>
-            📧 r.cabangal.524231@umindanao.edu.ph
+            📧 beehonest10@gmail.com
           </p>
         </section>
       </main>
