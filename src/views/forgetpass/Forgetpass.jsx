@@ -99,7 +99,9 @@ function Forgetpass() {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <h1>Forgot Password</h1>
-
+        <div className={styles.squarecontainer}>
+          <img src="/logo/forgetpassword.png" alt="Previous" />
+        </div>
         {message && <p className={styles.message}>{message}</p>}
 
         {step === 1 && (

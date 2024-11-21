@@ -87,9 +87,9 @@
   border-radius: 5px;
   border: 1px solid #ffffff; /* Set consistent border */
   font-size: 1rem;
-  width: 100%; /* Ensure full width */
+  width: 100% !important; /* Ensure full width */
   box-sizing: border-box; /* Include padding in width calculation */
-  margin-bottom: 20px; /* Consistent margin for all form elements */
+  margin-bottom: 5px; /* Consistent margin for all form elements */
   transition: border 0.3s ease;
   background-color: white;
 }

@@ -1,136 +1,144 @@
-/* Center the Forgetpass component without affecting global elements */
+/* Full-height wrapper centered on the screen */
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.8),
+    rgba(245, 174, 32, 0.886)
+  );
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Container styles */
+/* Main container for the form */
 .container {
-  max-width: 600px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-
-  /* Centering content inside container */
+  max-width: 500px;
+  width: 100%;
+  background-color: rgba(249, 249, 249, 0.2);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.123);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
-/* Responsive typography */
+/* Image container */
+.squarecontainer {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image styling */
+.squarecontainer img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Form title */
 h1 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 20px;
   color: #333;
 }
 
-p {
-  font-size: 1rem;
-  text-align: center;
-  color: #d9534f;
-  margin-bottom: 20px;
-}
-
+/* Message styling */
 .message {
-  color: #28a745;
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+  color: #f40e0e !important;
+  font-size: 1rem;
+  margin-bottom: 20px;
   text-align: center;
+  text-transform: capitalize;
 }
 
-/* Form styles */
+/* Form layout */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  width: 100%;
 }
 
-.label {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
+/* Input styling */
 .input {
-  padding: 10px;
+  padding: 12px;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 5px;
+  border: 1px solid #ddd;
   width: 100%;
   box-sizing: border-box;
+  transition: border 0.3s ease;
 }
 
-/* Button styles */
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button */
 .submitButton {
-  padding: 10px 15px;
-  font-size: 1.2rem;
+  padding: 15px;
+  font-size: 1rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .submitButton:hover {
   background-color: #0056b3;
 }
 
-/* Media query for smaller screens */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .container {
-    max-width: 100%;
-    padding: 15px;
+    padding: 20px;
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .input {
     font-size: 0.9rem;
-    padding: 8px;
   }
 
   .submitButton {
-    font-size: 1rem;
-    padding: 8px 12px;
-  }
-
-  p {
     font-size: 0.9rem;
-  }
-
-  .message {
-    font-size: 1rem;
+    padding: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 10px;
+    padding: 15px;
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .input {
-    font-size: 0.8rem;
-    padding: 7px;
+    font-size: 0.85rem;
   }
 
   .submitButton {
-    font-size: 0.9rem;
-    padding: 7px 10px;
-  }
-
-  p {
     font-size: 0.85rem;
+    padding: 10px;
   }
 }
