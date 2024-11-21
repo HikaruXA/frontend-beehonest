@@ -28,6 +28,9 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.modalContent .button {
   width: 100% !important;
 }
 
