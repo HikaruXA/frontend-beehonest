@@ -82,28 +82,28 @@ function Viewsubmission({ userID: propUserID, courseID: propCourseID, mcqID }) {
           <h2 className={styles.title}>Cheating Behavior Totals</h2>
           <div className={styles.behaviorCardsContainer}>
             <div className={styles.behaviorCard}>
-              <h3>Face Movement</h3>
-              <p>{totalBehaviors.faceMovement}</p>
+              <p className={styles.total}>{totalBehaviors.faceMovement}</p>
+              <p className={styles.type}>Face Movement</p>
             </div>
             <div className={styles.behaviorCard}>
-              <h3>Multiple People</h3>
-              <p>{totalBehaviors.multiplePeople}</p>
+              <p className={styles.total}>{totalBehaviors.multiplePeople}</p>
+              <p className={styles.type}>Multiple People</p>
             </div>
             <div className={styles.behaviorCard}>
-              <h3>Shortcut Keys</h3>
-              <p>{totalBehaviors.shortcutKeys}</p>
+              <p className={styles.total}>{totalBehaviors.shortcutKeys}</p>
+              <p className={styles.type}>Shortcut Keys</p>
             </div>
             <div className={styles.behaviorCard}>
-              <h3>Smartphone Use</h3>
-              <p>{totalBehaviors.smartphone}</p>
+              <p className={styles.total}>{totalBehaviors.smartphone}</p>
+              <p className={styles.type}>Smartphone Use</p>
             </div>
             <div className={styles.behaviorCard}>
-              <h3>Switch Tabs</h3>
-              <p>{totalBehaviors.switchTabs}</p>
+              <p className={styles.total}>{totalBehaviors.switchTabs}</p>
+              <p className={styles.type}>Switch Tabs</p>
             </div>
             <div className={styles.behaviorCard}>
-              <h3>No Person Detected</h3>
-              <p>{totalBehaviors.noPerson}</p>
+              <p className={styles.total}>{totalBehaviors.noPerson}</p>
+              <p className={styles.type}>No Person Detected</p>
             </div>
           </div>
 
