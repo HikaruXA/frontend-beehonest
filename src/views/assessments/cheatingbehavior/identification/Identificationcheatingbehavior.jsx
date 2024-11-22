@@ -278,8 +278,9 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
                 : 0;
             return (
               <div key={type} className={styles.behaviorCard}>
-                <h3>{type}</h3>
-                <p>Count: {count}</p>
+                <p className={styles.total}>{count}</p>
+                <p className={styles.type}>{type}</p>
+
                 <p>Percentage: {percentage}%</p>
               </div>
             );

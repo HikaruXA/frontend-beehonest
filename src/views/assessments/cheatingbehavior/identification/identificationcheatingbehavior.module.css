@@ -57,17 +57,19 @@
   white-space: nowrap; /* Prevent wrapping */
 }
 
-.behaviorCard h3 {
-  font-size: 1rem; /* Slightly smaller heading */
-  margin-bottom: 5px; /* Adjust spacing */
-  line-height: 1.2; /* Control line height */
+.behaviorCard .total {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: bolder;
   color: black;
+  text-align: center;
 }
 
-.behaviorCard p {
-  font-size: 0.9rem; /* Adjust paragraph font size */
-  color: #fff;
-  line-height: 1.2;
+.behaviorCard .type {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  line-height: 1;
 }
 
 /* Adding background colors to each behavior type */
