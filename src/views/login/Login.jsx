@@ -43,11 +43,15 @@ const Login = () => {
       const result = await response.json();
 
       if (result.success) {
-        // Redirect based on roleID
+        // Save user session data in localStorage
+        localStorage.setItem("userID", result.userID);
+        localStorage.setItem("roleID", result.roleID);
+
+        // Navigate based on roleID
         if (result.roleID === "educator") {
-          navigate("/Educatorlayout", { state: { userID: result.userID } });
+          navigate("/Educatorlayout");
         } else if (result.roleID === "student") {
-          navigate("/studentlayout", { state: { userID: result.userID } });
+          navigate("/studentlayout");
         }
       } else {
         setError(result.message);

@@ -1,23 +1,22 @@
 // Import necessary modules and components
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import SideNav from "../../../components/sidenav/Sidenav";
 import StudentDisplay from "../../courses/students/Studentsdisplay";
 import StudentAssessment from "../../assessments/students/Studentassessment";
-import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior"; // Import the cheating behavior component
-import Profile from "../../profile/Profile"; // Import Profile for the student's view
+import Studentcheatingbehavior from "../../studentcheatingbehavior/Studentcheatingbehavior";
+import Profile from "../../profile/Profile";
 import styles from "./studentlayout.module.css";
 
 function StudentLayout() {
-  const location = useLocation();
-  const navigate = useNavigate(); // Hook to navigate to landing page
+  const navigate = useNavigate();
 
-  // Initialize userID as null
+  // Initialize userID and state management
   const [userID, setUserID] = useState(null);
-  const [selectedCourseID, setSelectedCourseID] = useState(null); // Track selected course
-  const [currentView, setCurrentView] = useState("courses"); // Track current view (either 'display' or 'assessment')
-  const [isSidenavVisible, setIsSidenavVisible] = useState(false); // State for sidenav visibility
-  const logo = "path/to/your/logo.png"; // Replace with the actual path to your logo
+  const [selectedCourseID, setSelectedCourseID] = useState(null);
+  const [currentView, setCurrentView] = useState("courses");
+  const [isSidenavVisible, setIsSidenavVisible] = useState(false);
+  const logo = "path/to/your/logo.png";
 
   // Menu items
   const menuItems = [
@@ -27,61 +26,58 @@ function StudentLayout() {
     { name: "Logout", icon: "🚪" },
   ];
 
+  // Load userID from localStorage on component mount
   useEffect(() => {
-    // Check for userID in localStorage or location state
     const storedUserID = localStorage.getItem("userID");
+
     if (storedUserID) {
       setUserID(storedUserID);
-    } else if (location.state?.userID) {
-      localStorage.setItem("userID", location.state.userID);
-      setUserID(location.state.userID);
     } else {
-      // Redirect or handle the case when userID is not available
-      navigate("/login"); // Redirect to a login page or handle appropriately
+      // Redirect to login if no userID is found in localStorage
+      navigate("/login");
     }
-  }, [location.state, navigate]);
+  }, [navigate]);
 
-  // Function to handle course card click (to view assessments for the course)
+  // Handle course card click
   const handleCardClick = (courseID) => {
-    setSelectedCourseID(courseID); // Set selected course
-    setCurrentView("assessment"); // Switch to assessment view
+    setSelectedCourseID(courseID);
+    setCurrentView("assessment");
   };
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem("userID"); // Clear userID from localStorage on logout
-    navigate("/"); // Redirect to the landing page
+    localStorage.removeItem("userID");
+    navigate("/");
   };
 
   // Handle menu item clicks
   const handleMenuClick = (item) => {
     switch (item.name) {
       case "Profile":
-        setCurrentView("profile"); // Set currentView to profile
+        setCurrentView("profile");
         break;
       case "Dashboard":
-        setCurrentView("courses"); // Set currentView to dashboard (course display)
+        setCurrentView("courses");
         break;
       case "Cheating Behaviors":
-        setCurrentView("cheating"); // Set currentView to cheating behaviors
+        setCurrentView("cheating");
         break;
       case "Logout":
-        handleLogout(); // Handle logout click
+        handleLogout();
         break;
       default:
         break;
     }
-    // Removed setIsSidenavVisible(false); to keep the sidenav open
   };
 
   // Toggle sidenav visibility
   const toggleSidenav = () => {
-    setIsSidenavVisible((prev) => !prev); // Toggle sidenav visibility
+    setIsSidenavVisible((prev) => !prev);
   };
 
-  // Ensure that userID is not null before rendering dependent components
+  // Ensure userID is set before rendering dependent components
   if (userID === null) {
-    return null; // You could return a loading indicator here if desired
+    return null;
   }
 
   return (
@@ -99,7 +95,7 @@ function StudentLayout() {
           menuItems={menuItems}
           logo={logo}
           onMenuItemClick={handleMenuClick}
-          onClose={toggleSidenav} // Pass the close handler to SideNav
+          onClose={toggleSidenav}
         />
       </div>
 
@@ -111,8 +107,7 @@ function StudentLayout() {
         {/* Top Navigation */}
         <div className={styles.topNav}>
           <button onClick={toggleSidenav} className={styles.toggleButton}>
-            {isSidenavVisible ? "❌" : "☰"}{" "}
-            {/* Change icon based on visibility */}
+            {isSidenavVisible ? "❌" : "☰"}
           </button>
           <h2 className={styles.currentView}>
             {currentView.charAt(0).toUpperCase() + currentView.slice(1)}
@@ -128,12 +123,10 @@ function StudentLayout() {
         )}
 
         {currentView === "cheating" && (
-          <Studentcheatingbehavior userID={userID} /> // Render cheating behavior component
+          <Studentcheatingbehavior userID={userID} />
         )}
 
-        {currentView === "profile" && (
-          <Profile userID={userID} /> // Reuse the Profile component from EducatorLayout
-        )}
+        {currentView === "profile" && <Profile userID={userID} />}
       </div>
     </div>
   );
