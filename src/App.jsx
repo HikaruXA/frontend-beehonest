@@ -28,6 +28,7 @@ import MCQanswers from "./views/quizzes/educators/answers/MCQanswers";
 import Identificationanswers from "./views/identification/educators/answers/Identificationanswers";
 import Quizdetection from "./views/quizzes/detection/Quizdetection";
 import Termsandcondition from "./components/termsandcondition/Termsandcondition";
+import RoleProtectedRoute from "./RoleProtectedRoute";
 
 function App() {
   return (
@@ -36,8 +37,22 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/educatorlayout" element={<EducatorLayout />} />
-        <Route path="/studentlayout" element={<StudentLayout />} />
+        <Route
+          path="/educatorlayout"
+          element={
+            <RoleProtectedRoute allowedRole="educator">
+              <EducatorLayout />
+            </RoleProtectedRoute>
+          }
+        />
+        <Route
+          path="/studentlayout"
+          element={
+            <RoleProtectedRoute allowedRole="student">
+              <StudentLayout />
+            </RoleProtectedRoute>
+          }
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/createcourse" element={<CreateCourse />} />
         <Route path="/educatorassessment" element={<Educatorassessment />} />
