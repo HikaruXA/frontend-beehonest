@@ -15,7 +15,9 @@ function Identificationanswers({ identificationID }) {
   useEffect(() => {
     if (identificationID) {
       // Fetching identification details
-      fetch(`http://localhost:8081/identification/${identificationID}`)
+      fetch(
+        `https://backend-bhonest-a110b63abc0c.herokuapp.com/identification/${identificationID}`
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
@@ -30,7 +32,7 @@ function Identificationanswers({ identificationID }) {
 
       // Fetching title and description
       fetch(
-        `http://localhost:8081/get-identification-title-description?identificationID=${identificationID}`
+        `https://backend-bhonest-a110b63abc0c.herokuapp.com/get-identification-title-description?identificationID=${identificationID}`
       )
         .then((res) => res.json())
         .then((data) => {

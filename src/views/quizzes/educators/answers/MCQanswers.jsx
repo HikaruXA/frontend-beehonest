@@ -59,15 +59,12 @@ function MCQanswers({ mcqID }) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(16);
 
-    // Center the title
     const title = "MCQ Answer Key";
     const titleWidth = doc.getTextWidth(title);
     const xCenter = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
     doc.text(title, xCenter, 20);
     doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
 
-    // Add MCQ title and description
     if (mcqInfo) {
       doc.text(`Title: ${mcqInfo.title}`, 14, 30);
       doc.text(`Description: ${mcqInfo.description}`, 14, 40);
@@ -77,6 +74,8 @@ function MCQanswers({ mcqID }) {
 
     if (mcqDetails) {
       mcqDetails.forEach((question, index) => {
+        if (!question || !Array.isArray(question.choices)) return;
+
         const correctChoice = question.choices.find(
           (choice) => choice.is_correct === "yes"
         );
@@ -84,49 +83,43 @@ function MCQanswers({ mcqID }) {
           (choice) => choice.is_correct === "yes"
         );
 
-        // Add question number and text
         doc.setFont("helvetica", "bold");
         doc.text(
-          `Question ${index + 1}: ${question.question}`,
+          `Question ${index + 1}: ${question.question || "No question text"}`,
           14,
           50 + index * 60
         );
         doc.setFont("helvetica", "normal");
 
-        // Add choices heading
         doc.text("Choices:", 14, 60 + index * 60);
 
-        // Add choices as A, B, C, ...
         question.choices.forEach((choice, choiceIndex) => {
           const answerText = `${String.fromCharCode(65 + choiceIndex)}. ${
-            choice.choice
-          }`; // Converts 0, 1, 2... to A, B, C...
+            choice.choice || "No choice text"
+          }`;
           doc.text(answerText, 20, 70 + index * 60 + choiceIndex * 10);
         });
 
-        // Add correct answer with letter
-        doc.setFont("helvetica", "bold");
-        doc.text(
-          `Correct Answer: ${String.fromCharCode(65 + correctChoiceIndex)}. ${
-            correctChoice.choice
-          }`,
-          14,
-          70 + index * 60 + question.choices.length * 10
-        );
-        doc.setFont("helvetica", "normal");
-
-        // Add a horizontal line
+        if (correctChoice) {
+          doc.setFont("helvetica", "bold");
+          doc.text(
+            `Correct Answer: ${String.fromCharCode(65 + correctChoiceIndex)}. ${
+              correctChoice.choice
+            }`,
+            14,
+            70 + index * 60 + question.choices.length * 10
+          );
+        }
         doc.setLineWidth(0.5);
         doc.line(
           10,
           75 + index * 60 + question.choices.length * 10,
           200,
           75 + index * 60 + question.choices.length * 10
-        ); // Horizontal line
+        );
       });
     }
 
-    // Save the PDF with the MCQ title as the file name
     const fileName = mcqInfo.title
       ? `${mcqInfo.title}.pdf`
       : "MCQ_Answer_Key.pdf";
@@ -135,7 +128,21 @@ function MCQanswers({ mcqID }) {
 
   // Render the MCQ answers
   const renderMCQAnswers = () => {
+    if (!mcqDetails || mcqDetails.length === 0) {
+      return <p>No MCQ questions available to display.</p>;
+    }
+
     return mcqDetails.map((question, index) => {
+      if (!question || !Array.isArray(question.choices)) {
+        return (
+          <div key={`missing-${index}`} className={styles.questionBlock}>
+            <p>
+              Question {index + 1} data is incomplete or choices are missing.
+            </p>
+          </div>
+        );
+      }
+
       const correctChoice = question.choices.find(
         (choice) => choice.is_correct === "yes"
       );
@@ -144,31 +151,42 @@ function MCQanswers({ mcqID }) {
       );
 
       return (
-        <div key={question.mcqquestionID} className={styles.questionBlock}>
+        <div
+          key={question.mcqquestionID || `question-${index}`}
+          className={styles.questionBlock}
+        >
           <p className={styles.question}>
-            <strong>Question {index + 1}: </strong> {question.question}
+            <strong>Question {index + 1}: </strong>{" "}
+            {question.question || "No question text"}
           </p>
           <p className={styles.description}>Choices:</p>
           <ul className={styles.choicesList}>
             {question.choices.map((choice, choiceIndex) => (
               <li
-                key={choice.mcqchoicesID}
+                key={choice.mcqchoicesID || `choice-${choiceIndex}`}
                 className={
                   choice.is_correct === "yes"
                     ? styles.correctChoice
                     : styles.incorrectChoice
                 }
               >
-                {String.fromCharCode(65 + choiceIndex)}. {choice.choice}
+                {String.fromCharCode(65 + choiceIndex)}.{" "}
+                {choice.choice || "No choice text"}
               </li>
             ))}
           </ul>
-          <p className={styles.correctAnswer}>
-            <strong>
-              Correct Answer: {String.fromCharCode(65 + correctChoiceIndex)}.{" "}
-              {correctChoice.choice}
-            </strong>
-          </p>
+          {correctChoice ? (
+            <p className={styles.correctAnswer}>
+              <strong>
+                Correct Answer: {String.fromCharCode(65 + correctChoiceIndex)}.{" "}
+                {correctChoice.choice}
+              </strong>
+            </p>
+          ) : (
+            <p className={styles.correctAnswer}>
+              <strong>No correct answer specified</strong>
+            </p>
+          )}
           <hr />
         </div>
       );
