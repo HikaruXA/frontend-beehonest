@@ -60,6 +60,14 @@ function Upload({ userID, courseID }) {
     const selectedFile = e.target.files[0]; // Get the selected file
     const maxFileSize = 16 * 1024 * 1024; // 16 MB in bytes
 
+    // Check if the selected file is a PDF
+    if (selectedFile && selectedFile.type !== "application/pdf") {
+      alert("Please upload a PDF file.");
+      setFile(null); // Reset the file state
+      e.target.value = ""; // Clear the file input
+      return;
+    }
+
     // Check if the selected file exceeds the maximum size
     if (selectedFile.size > maxFileSize) {
       alert("File size exceeds 16MB limit. Please upload a smaller file.");
