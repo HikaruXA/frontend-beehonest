@@ -130,11 +130,6 @@ function Updatecourse({ courseID, onCancelEdit }) {
   return (
     <div className={styles.updateCourseContainer}>
       <h1 className={styles.header}>Update Course</h1>
-
-      <div className={styles.courseIDContainer}>
-        <strong>Course ID:</strong> {courseID}
-      </div>
-
       <div
         className={styles.courseImageContainer}
         onClick={handleCourseImageClick} // Open file dialog on click
@@ -193,11 +188,6 @@ function Updatecourse({ courseID, onCancelEdit }) {
           Update Course
         </button>
       </form>
-
-      {/* Back button to cancel editing */}
-      <button onClick={onCancelEdit} className={styles.backButton}>
-        Back
-      </button>
     </div>
   );
 }

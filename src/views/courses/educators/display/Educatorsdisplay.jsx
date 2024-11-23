@@ -122,12 +122,16 @@ function EducatorsDisplay({ userID, onCardClick, onAddCourseClick }) {
   if (editingCourseID) {
     return (
       <div>
+        <Updatecourse
+          courseID={editingCourseID}
+          onCancelEdit={() => setEditingCourseID(null)} // Pass handler to cancel editing
+        />
         <button
           onClick={handleBackClick}
           style={{
             marginBottom: "16px",
             padding: "8px 12px",
-            backgroundColor: "#4CAF50",
+            backgroundColor: "#007bff",
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -136,10 +140,6 @@ function EducatorsDisplay({ userID, onCardClick, onAddCourseClick }) {
         >
           Back
         </button>
-        <Updatecourse
-          courseID={editingCourseID}
-          onCancelEdit={() => setEditingCourseID(null)} // Pass handler to cancel editing
-        />
       </div>
     );
   }

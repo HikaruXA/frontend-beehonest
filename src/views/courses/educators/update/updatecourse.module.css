@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  max-width: 600px; /* Wider than the profile form */
+  max-width: 600px;
   margin: 0 auto;
   background-color: #f9f9f9;
   border-radius: 10px;
@@ -14,11 +14,6 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-}
-
-.courseIDContainer {
-  margin-bottom: 10px;
-  font-size: 16px;
 }
 
 .courseImageContainer {
@@ -38,7 +33,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px; /* Ensure it stays rectangular with rounded corners */
+  border-radius: 10px;
 }
 
 .defaultImage {
@@ -49,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #bbb; /* Fallback color if no image is present */
+  background-color: #bbb;
   border-radius: 10px;
 }
 
@@ -70,22 +65,18 @@ label {
 
 .input,
 .textarea {
-  width: 100%;
+  width: 100% !important;
   padding: 10px;
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  box-sizing: border-box;
+  box-sizing: border-box !important; /* Ensures consistent sizing */
 }
 
+/* Adjust textarea to match input height if necessary */
 .textarea {
   resize: vertical;
-  min-height: 100px; /* For larger description input */
-}
-
-.fileInput {
-  padding: 5px;
-  font-size: 14px;
+  min-height: 100px;
 }
 
 .submitButton {
