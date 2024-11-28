@@ -26,15 +26,25 @@ function Createidentification({ userID, courseID, onIdentificationCreated }) {
     ]);
   };
 
+  // Function to convert local time to UTC
+  const convertToUTC = (localDateTime) => {
+    const date = new Date(localDateTime);
+    return date.toISOString(); // Converts the date to UTC in ISO format
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Convert the deadline to UTC before sending to the backend
+    const deadlineUTC = convertToUTC(deadline_at);
+
     const identificationData = {
       userID,
       courseID,
       title,
       description,
-      deadline_at,
+      deadline_at: deadlineUTC, // Use the UTC deadline
       questions,
     };
 

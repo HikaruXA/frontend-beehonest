@@ -63,14 +63,24 @@ function Createquiz({ userID, courseID, onQuizCreated }) {
     setQuestions(updatedQuestions);
   };
 
+  // Function to convert local time to UTC
+  const convertToUTC = (localDateTime) => {
+    const date = new Date(localDateTime);
+    return date.toISOString(); // Converts the date to UTC in ISO format
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Convert the deadline to UTC before sending to the backend
+    const deadlineUTC = convertToUTC(deadline);
+
     const mcqData = {
       userID,
       courseID,
       title: quizTitle,
       description: quizDescription,
-      deadline_at: deadline,
+      deadline_at: deadlineUTC, // Use the UTC deadline
       questions,
     };
 

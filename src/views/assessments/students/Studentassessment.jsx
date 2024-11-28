@@ -11,6 +11,9 @@ function StudentAssessment({ userID, courseID }) {
   const [identificationAssessments, setIdentificationAssessments] = useState(
     []
   );
+  const [mcqStatuses, setMcqStatuses] = useState({});
+  const [identificationStatuses, setIdentificationStatuses] = useState({});
+
   const [docsAssessments, setDocsAssessments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,11 +33,50 @@ function StudentAssessment({ userID, courseID }) {
         `https://backend-bhonest-a110b63abc0c.herokuapp.com/courseassessments?courseID=${courseID}`
       )
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.success) {
             setMcqAssessments(data.mcqAssessments);
             setIdentificationAssessments(data.identificationAssessments);
             setDocsAssessments(data.docsAssessments);
+
+            // Fetch statuses
+            const mcqStatuses = await Promise.all(
+              data.mcqAssessments.map(async (mcq) => {
+                const res = await fetch(
+                  `https://backend-bhonest-a110b63abc0c.herokuapp.com/check-mcq-status?mcqID=${mcq.mcqID}&userID=${userID}`
+                );
+                const result = await res.json();
+                return { mcqID: mcq.mcqID, taken: result.taken };
+              })
+            );
+
+            const identificationStatuses = await Promise.all(
+              data.identificationAssessments.map(async (ident) => {
+                const res = await fetch(
+                  `https://backend-bhonest-a110b63abc0c.herokuapp.com/check-identification-status?identificationID=${ident.identificationID}&userID=${userID}`
+                );
+                const result = await res.json();
+                return {
+                  identificationID: ident.identificationID,
+                  taken: result.taken,
+                };
+              })
+            );
+
+            // Map statuses to objects for quick access
+            setMcqStatuses(
+              mcqStatuses.reduce((acc, status) => {
+                acc[status.mcqID] = status.taken;
+                return acc;
+              }, {})
+            );
+
+            setIdentificationStatuses(
+              identificationStatuses.reduce((acc, status) => {
+                acc[status.identificationID] = status.taken;
+                return acc;
+              }, {})
+            );
           } else {
             setError("Failed to load assessments");
           }
@@ -63,7 +105,7 @@ function StudentAssessment({ userID, courseID }) {
           setError("Error fetching course details");
         });
     }
-  }, [courseID]);
+  }, [courseID, userID]);
 
   const handleViewQuiz = async (mcqID) => {
     try {
@@ -202,6 +244,7 @@ function StudentAssessment({ userID, courseID }) {
                 <th>Description</th>
                 <th>Created At</th>
                 <th>Deadline At</th>
+                <th>Taken</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -212,7 +255,17 @@ function StudentAssessment({ userID, courseID }) {
                     <td>{mcq.title}</td>
                     <td>{mcq.description}</td>
                     <td>{new Date(mcq.created_at).toLocaleString()}</td>
-                    <td>{new Date(mcq.deadline_at).toLocaleString()}</td>
+                    <td
+                      style={{
+                        color:
+                          new Date(mcq.deadline_at) < new Date()
+                            ? "red"
+                            : "inherit",
+                      }}
+                    >
+                      {new Date(mcq.deadline_at).toLocaleString()}
+                    </td>
+                    <td>{mcqStatuses[mcq.mcqID] ? "YES" : "NO"}</td>
                     <td>
                       <button
                         onClick={() => handleViewQuiz(mcq.mcqID)}
@@ -225,7 +278,7 @@ function StudentAssessment({ userID, courseID }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">No MCQ assessments available</td>
+                  <td colSpan="6">No MCQ assessments available</td>
                 </tr>
               )}
             </tbody>
@@ -239,6 +292,7 @@ function StudentAssessment({ userID, courseID }) {
                 <th>Description</th>
                 <th>Created At</th>
                 <th>Deadline At</th>
+                <th>Taken</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -249,7 +303,21 @@ function StudentAssessment({ userID, courseID }) {
                     <td>{ident.title}</td>
                     <td>{ident.description}</td>
                     <td>{new Date(ident.created_at).toLocaleString()}</td>
-                    <td>{new Date(ident.deadline_at).toLocaleString()}</td>
+                    <td
+                      style={{
+                        color:
+                          new Date(ident.deadline_at) < new Date()
+                            ? "red"
+                            : "inherit",
+                      }}
+                    >
+                      {new Date(ident.deadline_at).toLocaleString()}
+                    </td>
+                    <td>
+                      {identificationStatuses[ident.identificationID]
+                        ? "YES"
+                        : "NO"}
+                    </td>
                     <td>
                       <button
                         onClick={() =>
@@ -264,7 +332,7 @@ function StudentAssessment({ userID, courseID }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">No Identification assessments available</td>
+                  <td colSpan="6">No Identification assessments available</td>
                 </tr>
               )}
             </tbody>
