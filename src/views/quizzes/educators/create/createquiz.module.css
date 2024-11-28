@@ -92,7 +92,7 @@
 /* Button styling */
 .addButton {
   display: inline-block;
-  background-color: #00aaff; /* Modern bright blue */
+  background-color: #007bff !important; /* Modern bright blue */
   color: #fff;
   padding: 10px 20px;
   font-size: 1rem;
@@ -103,16 +103,17 @@
 }
 
 .addButton:hover {
-  background-color: #008fcc; /* Slightly darker shade on hover */
+  background-color: #0056b3 !important; /* Slightly darker shade on hover */
 }
 
 .submitContainer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .submitButton {
   background-color: #28a745; /* Green for submission */
+  width: 100%;
   color: #fff;
   padding: 15px 30px;
   font-size: 1.2rem;

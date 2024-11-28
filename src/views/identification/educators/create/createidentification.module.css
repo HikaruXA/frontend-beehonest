@@ -78,7 +78,7 @@
 }
 
 .addButton {
-  background-color: #00aaff;
+  background-color: #007bff !important;
   color: white;
   padding: 10px 20px;
   font-size: 1rem;
@@ -89,16 +89,17 @@
 }
 
 .addButton:hover {
-  background-color: #008fcc;
+  background-color: #0056b3 !important;
 }
 
 .submitContainer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .submitButton {
   background-color: #28a745;
+  width: 100%;
   color: white;
   padding: 15px 30px;
   font-size: 1.2rem;
