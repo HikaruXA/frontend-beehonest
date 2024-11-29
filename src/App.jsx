@@ -29,6 +29,7 @@ import Identificationanswers from "./views/identification/educators/answers/Iden
 import Quizdetection from "./views/quizzes/detection/Quizdetection";
 import Termsandcondition from "./components/termsandcondition/Termsandcondition";
 import RoleProtectedRoute from "./RoleProtectedRoute";
+import Verify from "./views/register/verify/Verify";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify" element={<Verify />} />
         <Route
           path="/educatorlayout"
           element={
