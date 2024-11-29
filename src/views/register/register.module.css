@@ -98,14 +98,14 @@
 input[name="firstname"],
 input[name="lastname"],
 input[type="file"] {
-  border-color: black; /* Ensure the default border is black */
+  border-color: #ffffff !important; /* Ensure the default border is black */
 }
 
 /* Ensure black border remains on focus for firstname, lastname, and file inputs */
 input[name="firstname"]:focus,
 input[name="lastname"]:focus,
 input[type="file"]:focus {
-  border-color: black !important; /* Ensure black border on focus */
+  border-color: #007bff !important; /* Ensure black border on focus */
   outline: none; /* Remove the default outline */
 }
 
