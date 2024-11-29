@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "./verify.module.css";
+import styles from "./failed.module.css";
 
-const Verify = () => {
+const Failed = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h2 className={styles.title}>Sucessfully Verified</h2>
+        <h2 className={styles.title}>Expired or Invalid token</h2>
         <div className={styles.squarecontainer}>
-          <img src="/logo/verify.png" alt="Previous" />
+          <img src="/logo/failed.png" alt="Previous" />
         </div>
         <p className={styles.message}>
           <a href="https://beehonest.netlify.app/login" className={styles.link}>
@@ -19,4 +19,4 @@ const Verify = () => {
   );
 };
 
-export default Verify;
+export default Failed;

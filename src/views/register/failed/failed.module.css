@@ -1,0 +1,222 @@
+/* General Container for form */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.8),
+    rgba(245, 174, 32, 0.886)
+  );
+  padding: 20px;
+}
+
+/* Form container with shadow, rounded corners, and responsive width */
+.formContainer {
+  background-color: rgba(249, 249, 249, 0.2); /* Translucent background */
+  padding: 40px;
+  border-radius: 20px; /* Rounded corners for consistency */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.123); /* Subtle border */
+}
+
+/* Image container styling */
+.squarecontainer {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.squarecontainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure the image fits within the container */
+  border-radius: 20px;
+}
+
+/* Title for form */
+.title {
+  text-align: left;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Error message styling */
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form fields layout */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input group spacing */
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+/* Label styling */
+.label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+/* Ensure consistent width and margin for all form elements */
+.input,
+.select,
+.inputFile {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ffffff; /* Set consistent border */
+  font-size: 1rem;
+  width: 100% !important; /* Ensure full width */
+  box-sizing: border-box; /* Include padding in width calculation */
+  margin-bottom: 5px; /* Consistent margin for all form elements */
+  transition: border 0.3s ease;
+  background-color: white;
+}
+
+/* Specific styles for firstname, lastname, and file input */
+input[name="firstname"],
+input[name="lastname"],
+input[type="file"] {
+  border-color: black; /* Ensure the default border is black */
+}
+
+/* Ensure black border remains on focus for firstname, lastname, and file inputs */
+input[name="firstname"]:focus,
+input[name="lastname"]:focus,
+input[type="file"]:focus {
+  border-color: black !important; /* Ensure black border on focus */
+  outline: none; /* Remove the default outline */
+}
+
+/* Focus effect for email and password inputs with blue border */
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Focus effect for role select dropdown */
+.select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button styling */
+.submitButton {
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for terms and conditions checkbox */
+.inputcheckbox {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 20px; /* Consistent margin */
+}
+
+.checkbox {
+  margin-right: 8px; /* Space between checkbox and label */
+}
+
+.checkboxLabel {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Link styling for terms and conditions */
+.checkboxLabel a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.checkboxLabel a:hover {
+  text-decoration: underline;
+}
+
+/* Small screens: Mobile responsiveness */
+@media (max-width: 600px) {
+  .formContainer {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .input,
+  .select,
+  .inputFile {
+    font-size: 0.9rem;
+  }
+
+  .submitButton {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .squarecontainer {
+    max-width: 100%;
+    height: 120px;
+  }
+
+  .squarecontainer img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Medium screens: Tablet responsiveness */
+@media (max-width: 900px) {
+  .formContainer {
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .input,
+  .select,
+  .inputFile {
+    font-size: 1rem;
+  }
+
+  .submitButton {
+    font-size: 1rem;
+    padding: 14px;
+  }
+}
