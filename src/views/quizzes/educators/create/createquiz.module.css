@@ -126,5 +126,22 @@
   background-color: #218838; /* Darker green on hover */
 }
 .removeButton {
-  background-color: rgb(153, 0, 0) !important;
+  background-color: #dc3545 !important;
+}
+.removeButton:hover {
+  background-color: #c82333 !important; /* Darker red on hover */
+}
+.removeQuestionButton {
+  float: right;
+  background-color: #dc3545; /* Red for delete */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.removeQuestionButton:hover {
+  background-color: #c82333 !important; /* Darker red on hover */
 }

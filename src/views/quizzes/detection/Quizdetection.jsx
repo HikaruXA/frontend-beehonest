@@ -155,14 +155,39 @@ function Quizdetection({ userID, mcqID }) {
 
     async function setupCamera() {
       const video = videoRef.current;
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-      streamRef.current = stream; // Save stream reference
-      return new Promise((resolve) => {
-        video.onloadedmetadata = () => {
-          resolve(video);
-        };
-      });
+
+      while (true) {
+        // Infinit loop na mag assk to allow the use of cam.
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+          video.srcObject = stream;
+          streamRef.current = stream;
+
+          return new Promise((resolve) => {
+            video.onloadedmetadata = () => {
+              resolve(video);
+            };
+          });
+        } catch (error) {
+          if (
+            error.name === "NotAllowedError" ||
+            error.name === "SecurityError"
+          ) {
+            alert("Camera access is required. Please allow camera access.");
+          } else {
+            console.error(
+              "An error occurred while accessing the camera:",
+              error
+            );
+            alert("An unexpected error occurred. Please try again.");
+          }
+
+          // Add og delay para di samok sa user
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+      }
     }
 
     function drawFaces(faces, ctx) {

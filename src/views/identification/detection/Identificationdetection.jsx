@@ -16,7 +16,6 @@ function Identificationdetection({ userID, identificationID }) {
   const [isInitialDetectionDone, setIsInitialDetectionDone] = useState(false);
   const [isTabActive, setIsTabActive] = useState(true);
 
-  // Helper function to load a script dynamically
   const loadScript = (src) => {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -30,7 +29,7 @@ function Identificationdetection({ userID, identificationID }) {
 
   const logToServer = async (url, body, logType) => {
     const currentTime = Date.now();
-    // Only log if enough time has passed
+    // Add delay para di mapuno og redundant data
     if (currentTime - lastLogTime[logType] > 3000) {
       try {
         const response = await fetch(url, {
@@ -182,17 +181,41 @@ function Identificationdetection({ userID, identificationID }) {
     document.addEventListener("visibilitychange", handleVisibilityChange);
     document.addEventListener("copy", handleCopy);
     document.addEventListener("paste", handlePaste);
-
     async function setupCamera() {
       const video = videoRef.current;
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-      streamRef.current = stream; // Save stream reference
-      return new Promise((resolve) => {
-        video.onloadedmetadata = () => {
-          resolve(video);
-        };
-      });
+
+      while (true) {
+        // Keep looping until permission is granted
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+          video.srcObject = stream;
+          streamRef.current = stream; // Save stream reference
+
+          return new Promise((resolve) => {
+            video.onloadedmetadata = () => {
+              resolve(video); // Resolve the promise when the video is ready
+            };
+          });
+        } catch (error) {
+          if (
+            error.name === "NotAllowedError" ||
+            error.name === "SecurityError"
+          ) {
+            alert("Camera access is required. Please allow camera access.");
+          } else {
+            console.error(
+              "An error occurred while accessing the camera:",
+              error
+            );
+            alert("An unexpected error occurred. Please try again.");
+          }
+
+          // Wait for a brief moment before retrying to avoid overwhelming the user
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+      }
     }
 
     function drawFaces(faces, ctx) {
@@ -308,7 +331,6 @@ function Identificationdetection({ userID, identificationID }) {
           logMultiplePeopleDetected();
         }
 
-        // Request the next animation frame
         animationFrameRef.current = requestAnimationFrame(detect);
       }
 
@@ -316,13 +338,13 @@ function Identificationdetection({ userID, identificationID }) {
     }
 
     return () => {
-      stopCamera(); // Stop the camera stream
-      cancelAnimationFrame(animationFrameRef.current); // Cancel any running animation frames
+      stopCamera();
+      cancelAnimationFrame(animationFrameRef.current);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("copy", handleCopy);
       document.removeEventListener("paste", handlePaste);
     };
-  }, [lastLogTime, isTabActive]); // Added isTabActive to the dependencies
+  }, [lastLogTime, isTabActive]);
 
   return (
     <div

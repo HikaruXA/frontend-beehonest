@@ -17,6 +17,13 @@ function Createquiz({ userID, courseID, onQuizCreated }) {
     ]);
   };
 
+  const removeQuestion = (questionIndex) => {
+    const updatedQuestions = questions.filter(
+      (_, index) => index !== questionIndex
+    );
+    setQuestions(updatedQuestions);
+  };
+
   const addChoice = (questionIndex) => {
     const updatedQuestions = questions.map((q, index) => {
       if (index === questionIndex) {
@@ -147,6 +154,13 @@ function Createquiz({ userID, courseID, onQuizCreated }) {
 
         {questions.map((q, qIndex) => (
           <div key={qIndex} className={styles.questionContainer}>
+            <button
+              type="button"
+              onClick={() => removeQuestion(qIndex)}
+              className={styles.removeQuestionButton}
+            >
+              Remove Question
+            </button>
             <h3 className={styles.subtitle}>Question {qIndex + 1}</h3>
             <div className={styles.formGroup}>
               <label className={styles.label}>Question:</label>
