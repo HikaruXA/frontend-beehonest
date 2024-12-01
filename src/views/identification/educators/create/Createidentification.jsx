@@ -26,6 +26,14 @@ function Createidentification({ userID, courseID, onIdentificationCreated }) {
     ]);
   };
 
+  // Remove a question
+  const removeQuestion = (questionIndex) => {
+    const updatedQuestions = questions.filter(
+      (_, index) => index !== questionIndex
+    );
+    setQuestions(updatedQuestions);
+  };
+
   // Function to convert local time to UTC
   const convertToUTC = (localDateTime) => {
     const date = new Date(localDateTime);
@@ -112,6 +120,13 @@ function Createidentification({ userID, courseID, onIdentificationCreated }) {
 
         {questions.map((q, index) => (
           <div key={index} className={styles.questionContainer}>
+            <button
+              type="button"
+              onClick={() => removeQuestion(index)}
+              className={styles.removeButton}
+            >
+              Remove Question
+            </button>
             <h3 className={styles.subtitle}>Question {index + 1}</h3>
             <div className={styles.formGroup}>
               <label className={styles.label}>Question:</label>
@@ -162,6 +177,7 @@ function Createidentification({ userID, courseID, onIdentificationCreated }) {
         >
           Add Question
         </button>
+
         <div className={styles.submitContainer}>
           <button type="submit" className={styles.submitButton}>
             Create Identification
