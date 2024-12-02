@@ -253,7 +253,7 @@ function Studentcheatingbehavior({ userID }) {
       </select>
 
       {/* First Table: Display Cheating Behavior Logs */}
-      <h3>Cheating Behavior Logs</h3>
+      <h3>Identification Cheating Behavior Logs</h3>
       <table>
         <thead>
           <tr>
