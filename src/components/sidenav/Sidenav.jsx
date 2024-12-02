@@ -15,7 +15,7 @@ const SideNav = ({ menuItems, logo, onMenuItemClick, onClose }) => {
   return (
     <div className={styles.sideNavContainer}>
       <div className={styles.logoContainer}>
-        <img src={logo} alt="Logo" className={styles.logo} />
+        <img src="/logo/bee.svg" alt="Logo" className={styles.logo} />
       </div>
       {/* Close Button */}
       <button onClick={onClose} className={styles.closeButton}>
