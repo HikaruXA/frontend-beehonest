@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import IdentificationFaceAPI from "../../../test/IdentificationFaceAPI";
 import {
   Chart,
   CategoryScale,
@@ -25,6 +26,21 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("All");
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // To track modal visibility
+  const [modalImage, setModalImage] = useState(null); // To store the image to be shown in the modal
+
+  // Open Modal Function
+  const openModal = (proof) => {
+    setModalImage(proof); // Set the image to display
+    setIsModalOpen(true); // Open the modal
+  };
+
+  // Close Modal Function
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+    setModalImage(null); // Reset the modal image
+  };
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0);
@@ -65,36 +81,42 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
                 type: "Face Movement",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbFM_ID,
+                proof: behavior.proof, // proof added here
               })),
               ...data.cheatingBehaviors.multiplePeople.map((behavior) => ({
                 type: "Multiple People",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbMP_ID,
+                proof: behavior.proof, // proof added here
               })),
               ...data.cheatingBehaviors.shortcutKeys.map((behavior) => ({
                 type: "Shortcut Keys",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbSK_ID,
                 details: behavior.shortcutkeys, // Additional details for shortcut keys
+                proof: null, // No proof for shortcut keys (if not included)
               })),
               ...data.cheatingBehaviors.smartphone.map((behavior) => ({
                 type: "Smartphone",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbSP_ID,
+                proof: behavior.proof, // proof added here
               })),
               ...data.cheatingBehaviors.switchTabs.map((behavior) => ({
                 type: "Switch Tabs",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbST_ID,
+                proof: null, // No proof for switch tabs (if not included)
               })),
               ...data.cheatingBehaviors.noPerson.map((behavior) => ({
                 type: "No Person",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbNP_ID,
+                proof: behavior.proof, // proof added here
               })),
             ];
 
-            setCheatingBehaviors(combinedBehaviors);
+            setCheatingBehaviors(combinedBehaviors); // This will now have the proof field
           } else {
             setError(data.message);
           }
@@ -225,6 +247,20 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
 
   return (
     <div className={styles.container}>
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <img
+              src={modalImage}
+              alt="Enlarged proof"
+              className={styles.modalImage}
+            />
+            <button className={styles.closeButton} onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <h1 className={styles.title}>Cheating Behavior for Identification</h1>
 
       {/* Display User Information */}
@@ -313,6 +349,7 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
               <tr>
                 <th>Type</th>
                 <th>Timestamp</th>
+                <th>Proof</th> {/* Added a column for proof */}
               </tr>
             </thead>
             <tbody>
@@ -321,6 +358,21 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
                   <td>{behavior.type}</td>
                   <td>{formatTimestamp(behavior.timestamp)}</td>{" "}
                   {/* Format the timestamp */}
+                  <td>
+                    {/* Check if the behavior has a proof and render an image */}
+                    {behavior.proof ? (
+                      <img
+                        src={`data:image/jpeg;base64,${behavior.proof}`} // Assuming the proof is a base64-encoded image
+                        alt={`${behavior.type} proof`}
+                        className={styles.proofImage} // Add styles for the image
+                        onClick={() =>
+                          openModal(`data:image/jpeg;base64,${behavior.proof}`)
+                        } // Open modal on click
+                      />
+                    ) : (
+                      <span>N/A</span> // Fallback text if no proof exists
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -356,6 +408,12 @@ function Identificationcheatingbehavior({ userID, identificationID }) {
               className={styles.paginationIcon}
             />
           </button>
+        </div>
+        <div className="displayhere">
+          <IdentificationFaceAPI
+            userID={userID}
+            identificationID={identificationID}
+          />
         </div>
       </div>
     </div>

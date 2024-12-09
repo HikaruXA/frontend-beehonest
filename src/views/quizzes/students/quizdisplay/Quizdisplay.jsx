@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./quizdisplay.module.css"; // Import the CSS module
 import Quizdetection from "../../detection/Quizdetection"; // Import the Quizdetection component
+import html2canvas from "html2canvas"; // Import html2canvas to capture the div as an image
 
 function QuizDisplay({ mcqID, courseID, userID, onClose }) {
   const [mcqDetails, setMcqDetails] = useState(null);
@@ -44,10 +45,70 @@ function QuizDisplay({ mcqID, courseID, userID, onClose }) {
     }));
   };
 
+  // Capture image of the floating detection div and upload
+  const captureAndUploadImage = async (mcqquestionID) => {
+    const detectionDiv = document.querySelector(`.${styles.floatingDetection}`);
+
+    if (detectionDiv) {
+      try {
+        // Capture the div as an image
+        const canvas = await html2canvas(detectionDiv);
+        const imageData = canvas.toDataURL("image/png"); // Convert canvas to base64 image
+
+        // Log the image data to see how it looks before splitting
+        console.log("Image Data (before split):", imageData);
+
+        // Now split and log the second part of the base64 string
+        const imageBase64 = imageData.split(",")[1];
+        console.log("Base64 Image Data (after split):", imageBase64);
+
+        // Send image to the backend
+        const response = await fetch(
+          "https://backend-bhonest-a110b63abc0c.herokuapp.com/uploadMCQImage",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              mcqquestionID, // Send the mcqquestionID
+              userID,
+              image: imageBase64, // Send the base64 string without the prefix "data:image/png;base64,"
+            }),
+          }
+        );
+
+        const data = await response.json();
+        if (data.success) {
+          console.log("Image uploaded successfully");
+        } else {
+          console.error("Failed to upload image:", data.message);
+        }
+      } catch (error) {
+        console.error("Error capturing or uploading image:", error);
+      }
+    }
+  };
+
+  // Handle moving to the next question
+  const handleNextQuestion = async () => {
+    const currentQuestion = mcqDetails[currentQuestionIndex];
+
+    // Capture and upload the image of the floating detection div
+    await captureAndUploadImage(currentQuestion.mcqquestionID);
+
+    // Proceed to the next question
+    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  };
+
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
+
+    // Capture and upload the image of the floating detection div before submitting
+    const currentQuestion = mcqDetails[currentQuestionIndex];
+    await captureAndUploadImage(currentQuestion.mcqquestionID); // Capture on submit
 
     let correctAnswers = 0;
 
@@ -102,11 +163,6 @@ function QuizDisplay({ mcqID, courseID, userID, onClose }) {
     }
   };
 
-  // Handle moving to the next question
-  const handleNextQuestion = () => {
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  };
-
   // Render the current question
   const renderCurrentQuestion = () => {
     const currentQuestion = mcqDetails[currentQuestionIndex];
@@ -141,19 +197,6 @@ function QuizDisplay({ mcqID, courseID, userID, onClose }) {
       </div>
     );
   };
-
-  // Handle visibility change
-  const handleVisibilityChange = () => {
-    setIsVisible(!document.hidden);
-  };
-
-  useEffect(() => {
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
 
   return (
     <div className={styles.container}>

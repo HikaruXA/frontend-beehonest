@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./identificationdisplay.module.css"; // Import the CSS module
 import Identificationdetection from "../../detection/Identificationdetection";
+import html2canvas from "html2canvas"; // Import html2canvas to capture the div as an image
 
 function Identificationdisplay({ identificationID, courseID, userID }) {
   const [identificationDetails, setIdentificationDetails] = useState(null);
@@ -43,12 +44,63 @@ function Identificationdisplay({ identificationID, courseID, userID }) {
     }));
   };
 
+  // Capture and upload image of the floating detection div
+  // Capture and upload image of the floating detection div
+  const captureAndUploadImage = async (identificationqaID) => {
+    const detectionDiv = document.querySelector(`.${styles.floatingDetection}`);
+
+    if (detectionDiv) {
+      try {
+        // Capture the div as an image
+        const canvas = await html2canvas(detectionDiv);
+        const imageData = canvas.toDataURL("image/png"); // Convert canvas to base64 image
+
+        const payload = {
+          identificationqaID, // Send the question ID
+          userID,
+          proof: imageData.split(",")[1], // Use 'proof' instead of 'image'
+        };
+
+        // Log the payload to debug
+        console.log("Payload for image upload:", payload);
+
+        // Send image to the backend
+        const response = await fetch(
+          "https://backend-bhonest-a110b63abc0c.herokuapp.com/uploadIdentificationImage",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+
+        const data = await response.json();
+        console.log("Image upload response:", data);
+
+        if (data.success) {
+          console.log("Image uploaded successfully");
+        } else {
+          console.error("Failed to upload image:", data.message);
+        }
+      } catch (error) {
+        console.error("Error capturing or uploading image:", error);
+      }
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     let correctAnswers = 0;
+
+    // Capture and upload image of the floating detection div before submitting
+    const currentQuestion =
+      identificationDetails.questions[currentQuestionIndex];
+    await captureAndUploadImage(currentQuestion.identificationqaID); // Capture on submit
 
     // Compare user answers with the correct answers
     identificationDetails.questions.forEach((qa) => {
@@ -68,6 +120,15 @@ function Identificationdisplay({ identificationID, courseID, userID }) {
     const calculatedScore = `${correctAnswers}/${totalQuestions}`;
     setScore(calculatedScore);
 
+    const payload = {
+      identificationID,
+      userID,
+      score: calculatedScore,
+    };
+
+    // Log the payload to debug
+    console.log("Payload for score submission:", payload);
+
     // Submit score to backend
     try {
       const response = await fetch(
@@ -75,15 +136,13 @@ function Identificationdisplay({ identificationID, courseID, userID }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            identificationID,
-            userID,
-            score: calculatedScore,
-          }),
+          body: JSON.stringify(payload),
         }
       );
 
       const responseData = await response.json();
+      console.log("Score submission response:", responseData);
+
       if (responseData.success) {
         // Display score briefly, then redirect after 3 seconds
         setTimeout(() => {
@@ -98,7 +157,14 @@ function Identificationdisplay({ identificationID, courseID, userID }) {
   };
 
   // Handle moving to the next question
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    const currentQuestion =
+      identificationDetails.questions[currentQuestionIndex];
+
+    // Capture and upload image of the floating detection div
+    await captureAndUploadImage(currentQuestion.identificationqaID);
+
+    // Proceed to the next question
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 

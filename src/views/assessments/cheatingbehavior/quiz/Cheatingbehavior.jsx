@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import MCQFaceAPI from "../../../test/MCQFaceAPI";
 import {
   Chart,
   CategoryScale,
@@ -30,6 +31,36 @@ function Cheatingbehavior({ userID, mcqID }) {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0);
   const rowsPerPage = 10;
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImageSrc, setModalImageSrc] = useState("");
+
+  const [userImages, setUserImages] = useState([]);
+  useEffect(() => {
+    if (userID && mcqID) {
+      fetch(
+        `https://backend-bhonest-a110b63abc0c.herokuapp.com/get-mcq-user-images?mcqID=${mcqID}&userID=${userID}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            // Ensure images are wrapped in an array
+            setUserImages(
+              Array.isArray(data.images) ? data.images : [data.images]
+            );
+          } else {
+            setError(data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user images:", error);
+          setError("Error fetching user images");
+        });
+    } else {
+      setError("User ID and MCQ ID are required");
+    }
+  }, [userID, mcqID]);
 
   // Fetch user data based on userID
   useEffect(() => {
@@ -66,32 +97,37 @@ function Cheatingbehavior({ userID, mcqID }) {
                 type: "Face Movement",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbFM_ID,
+                proof: behavior.proof || null, // Add proof field
               })),
               ...data.cheatingBehaviors.multiplePeople.map((behavior) => ({
                 type: "Multiple People",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbMP_ID,
+                proof: behavior.proof || null, // Add proof field
               })),
               ...data.cheatingBehaviors.shortcutKeys.map((behavior) => ({
                 type: "Shortcut Keys",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbSK_ID,
-                details: behavior.shortcutkeys, // Adding details for shortcut keys
+                proof: null, // Shortcut Keys may not have proof
               })),
               ...data.cheatingBehaviors.smartphone.map((behavior) => ({
                 type: "Smartphone",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbSP_ID,
+                proof: behavior.proof || null, // Add proof field
               })),
               ...data.cheatingBehaviors.switchTabs.map((behavior) => ({
                 type: "Switch Tabs",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbST_ID,
+                proof: null, // Switch Tabs may not have proof
               })),
               ...data.cheatingBehaviors.noPerson.map((behavior) => ({
                 type: "No Person",
                 timestamp: behavior.timestamp,
                 id: behavior.ucbNP_ID,
+                proof: behavior.proof || null, // Add proof field
               })),
             ];
 
@@ -208,6 +244,15 @@ function Cheatingbehavior({ userID, mcqID }) {
     return date.toLocaleString("en-US", options).replace(",", "");
   };
 
+  const openModal = (imageSrc) => {
+    setModalImageSrc(imageSrc);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   if (loading) {
     return <div className={styles.loader}></div>; // Updated loading spinner
   }
@@ -276,7 +321,7 @@ function Cheatingbehavior({ userID, mcqID }) {
               <div key={type} className={styles.behaviorCard}>
                 <p className={styles.total}>{count}</p>
                 <p className={styles.type}>{type}</p>
-                <p>Percentage: {percentage}%</p> {/* Display percentage here */}
+                <p>Percentage: {percentage}%</p>
               </div>
             );
           })}
@@ -308,18 +353,35 @@ function Cheatingbehavior({ userID, mcqID }) {
                 <tr>
                   <th>Type</th>
                   <th>Timestamp</th>
+                  <th>Proof</th>
                 </tr>
               </thead>
               <tbody>
                 {paginatedBehaviors.map((behavior, index) => (
                   <tr key={`${behavior.id}-${index}`}>
                     <td>{behavior.type}</td>
-                    <td>{formatTimestamp(behavior.timestamp)}</td>{" "}
-                    {/* Format the timestamp */}
+                    <td>{formatTimestamp(behavior.timestamp)}</td>
+                    <td>
+                      {behavior.proof ? (
+                        <img
+                          src={`data:image/jpeg;base64,${behavior.proof}`}
+                          alt="Proof"
+                          className={styles.proofImage}
+                          onClick={() =>
+                            openModal(
+                              `data:image/jpeg;base64,${behavior.proof}`
+                            )
+                          }
+                        />
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
             {/* Pagination Controls */}
             <div className={styles.pagination}>
               <button
@@ -362,6 +424,30 @@ function Cheatingbehavior({ userID, mcqID }) {
           <p className={styles.noBehaviors}>No cheating behaviors found.</p>
         )}
       </div>
+
+      <div>
+        <h1>User verification</h1>
+        <MCQFaceAPI userID={userID} mcqID={mcqID} />
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className={styles.modal} onClick={closeModal}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={modalImageSrc}
+              alt="Proof"
+              className={styles.modalImage}
+            />
+            <button className={styles.closeButton} onClick={closeModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

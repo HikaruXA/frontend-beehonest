@@ -31,6 +31,9 @@ import Termsandcondition from "./components/termsandcondition/Termsandcondition"
 import RoleProtectedRoute from "./RoleProtectedRoute";
 import Verify from "./views/register/verify/Verify";
 import Failed from "./views/register/failed/Failed";
+import MCQFaceAPI from "./views/test/MCQFaceAPI";
+import CheatingBehaviorImages from "./views/test/CheatingBehavior";
+import IdentificationFaceAPI from "./views/test/IdentificationFaceAPI";
 
 function App() {
   return (
@@ -41,6 +44,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/failed" element={<Failed />} />
+        <Route path="/mcqfaceapi" element={<MCQFaceAPI />} />
+        <Route
+          path="/identificationfaceapi"
+          element={<IdentificationFaceAPI />}
+        />
+        <Route path="/test" element={<CheatingBehaviorImages />} />
         <Route
           path="/educatorlayout"
           element={
