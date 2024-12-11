@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import LoadingResource from "../../../components/LoadingResource/LoadingResource";
 import html2canvas from "html2canvas";
 import imageCompression from "browser-image-compression";
 
@@ -11,6 +12,7 @@ function Quizdetection({ userID, mcqID }) {
   const [isTabActive, setIsTabActive] = useState(true); // Track tab visibility
   const [capturedImage, setCapturedImage] = useState(null); // State to store captured image
   const [isAlertActive, setIsAlertActive] = useState(false); // Track if an alert is active
+  const [isModelsLoaded, setIsModelsLoaded] = useState(false);
 
   const loadScript = (src) => {
     return new Promise((resolve, reject) => {
@@ -366,6 +368,8 @@ function Quizdetection({ userID, mcqID }) {
       );
       const objectDetector = await window.cocoSsd.load();
 
+      setIsModelsLoaded(true);
+
       async function detect() {
         if (!isTabActive) {
           return; // Stop execution if the tab is inactive
@@ -423,6 +427,7 @@ function Quizdetection({ userID, mcqID }) {
 
   return (
     <>
+      {!isModelsLoaded && <LoadingResource />}
       <div
         className="imagecapture"
         style={{ position: "relative", width: "320px", height: "240px" }}
@@ -441,6 +446,33 @@ function Quizdetection({ userID, mcqID }) {
           height="240px"
           style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
         />
+        {!isInitialDetectionDone && isModelsLoaded && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "320px",
+              height: "240px",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 3,
+            }}
+          >
+            <div
+              style={{
+                border: "8px solid rgba(255, 255, 255, 0.3)",
+                borderRadius: "50%",
+                borderTop: "8px solid #fff",
+                width: "60px",
+                height: "60px",
+                animation: "spin 1s linear infinite",
+              }}
+            ></div>
+          </div>
+        )}
         {!isInitialDetectionDone && (
           <div
             style={{

@@ -3,6 +3,7 @@ import styles from "./studentassessment.module.css";
 import Identificationdisplay from "../../identification/students/identificationdisplay/Identificationdisplay";
 import QuizDisplay from "../../quizzes/students/quizdisplay/Quizdisplay";
 import Viewdocs from "../../docs/view/Viewdocs";
+import Warningmodal from "../../../components/warningmodal/warningmodal";
 import { useNavigate } from "react-router-dom";
 
 function StudentAssessment({ userID, courseID }) {
@@ -13,6 +14,10 @@ function StudentAssessment({ userID, courseID }) {
   );
   const [mcqStatuses, setMcqStatuses] = useState({});
   const [identificationStatuses, setIdentificationStatuses] = useState({});
+
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [pendingAssessmentType, setPendingAssessmentType] = useState(null);
+  const [pendingAssessmentId, setPendingAssessmentId] = useState(null);
 
   const [docsAssessments, setDocsAssessments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -116,14 +121,15 @@ function StudentAssessment({ userID, courseID }) {
 
       if (result.success) {
         if (!result.taken) {
-          // Find the deadline for the selected MCQ from the mcqAssessments state
           const selectedMcq = mcqAssessments.find((mcq) => mcq.mcqID === mcqID);
-          const deadline = new Date(selectedMcq.deadline_at); // Use deadline from table data
+          const deadline = new Date(selectedMcq.deadline_at);
           const currentDate = new Date();
 
           if (currentDate <= deadline) {
-            setIsViewingQuiz(true);
-            setCurrentAssessment(mcqID);
+            // Open warning modal instead of directly viewing quiz
+            setIsWarningModalOpen(true);
+            setPendingAssessmentType("mcq");
+            setPendingAssessmentId(mcqID);
           } else {
             alert("The deadline for this quiz has passed.");
           }
@@ -148,16 +154,17 @@ function StudentAssessment({ userID, courseID }) {
 
       if (result.success) {
         if (!result.taken) {
-          // Find the deadline for the selected Identification from the identificationAssessments state
           const selectedIdentification = identificationAssessments.find(
             (ident) => ident.identificationID === identificationID
           );
-          const deadline = new Date(selectedIdentification.deadline_at); // Use deadline from table data
+          const deadline = new Date(selectedIdentification.deadline_at);
           const currentDate = new Date();
 
           if (currentDate <= deadline) {
-            setIsViewingIdentification(true);
-            setCurrentAssessment(identificationID);
+            // Open warning modal instead of directly viewing identification
+            setIsWarningModalOpen(true);
+            setPendingAssessmentType("identification");
+            setPendingAssessmentId(identificationID);
           } else {
             alert("The deadline for this identification quiz has passed.");
           }
@@ -171,6 +178,31 @@ function StudentAssessment({ userID, courseID }) {
       console.error("Error checking identification status:", error);
       alert("An error occurred while checking the identification quiz status.");
     }
+  };
+
+  const handleConfirmWarning = () => {
+    // Close warning modal
+    setIsWarningModalOpen(false);
+
+    // Proceed with the selected assessment type
+    if (pendingAssessmentType === "mcq") {
+      setIsViewingQuiz(true);
+      setCurrentAssessment(pendingAssessmentId);
+    } else if (pendingAssessmentType === "identification") {
+      setIsViewingIdentification(true);
+      setCurrentAssessment(pendingAssessmentId);
+    }
+
+    // Reset pending assessment states
+    setPendingAssessmentType(null);
+    setPendingAssessmentId(null);
+  };
+
+  const handleCancelWarning = () => {
+    // Simply close the modal and reset pending assessment states
+    setIsWarningModalOpen(false);
+    setPendingAssessmentType(null);
+    setPendingAssessmentId(null);
   };
 
   const handleViewDocs = (docsID) => {
@@ -220,6 +252,13 @@ function StudentAssessment({ userID, courseID }) {
 
   return (
     <div>
+      {/* Warning Modal */}
+      <Warningmodal
+        isOpen={isWarningModalOpen}
+        onClose={handleCancelWarning}
+        onConfirm={handleConfirmWarning}
+      />
+
       {isViewingQuiz ? (
         renderQuizDisplay()
       ) : isViewingIdentification ? (

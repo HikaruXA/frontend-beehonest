@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import LoadingResource from "../../../components/LoadingResource/LoadingResource";
 import html2canvas from "html2canvas";
 import imageCompression from "browser-image-compression";
 
@@ -7,6 +8,7 @@ function Identificationdetection({ userID, identificationID }) {
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const [isComponentVisible, setIsComponentVisible] = useState(true);
   const [capturedImage, setCapturedImage] = useState(null); // State to store captured image
   const [lastLogTime, setLastLogTime] = useState({
     noPersonDetected: 0,
@@ -18,6 +20,8 @@ function Identificationdetection({ userID, identificationID }) {
   });
   const [isInitialDetectionDone, setIsInitialDetectionDone] = useState(false);
   const [isTabActive, setIsTabActive] = useState(true);
+  const [isModelsLoaded, setIsModelsLoaded] = useState(false);
+  const [isAlertEnabled, setIsAlertEnabled] = useState(true);
 
   const loadScript = (src) => {
     return new Promise((resolve, reject) => {
@@ -399,6 +403,7 @@ function Identificationdetection({ userID, identificationID }) {
         detectorConfig
       );
       const objectDetector = await window.cocoSsd.load();
+      setIsModelsLoaded(true);
 
       async function detect() {
         if (!isTabActive) {
@@ -445,16 +450,19 @@ function Identificationdetection({ userID, identificationID }) {
     }
 
     return () => {
-      stopCamera();
-      cancelAnimationFrame(animationFrameRef.current);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("copy", handleCopy);
       document.removeEventListener("paste", handlePaste);
+      stopCamera();
+      cancelAnimationFrame(animationFrameRef.current);
+      speechSynthesis.cancel();
+      setIsAlertEnabled(false);
     };
   }, [lastLogTime, isTabActive]);
 
   return (
     <>
+      {!isModelsLoaded && <LoadingResource />}
       <div
         className="imagecapture"
         style={{ position: "relative", width: "320px", height: "240px" }}
@@ -472,6 +480,33 @@ function Identificationdetection({ userID, identificationID }) {
           height="240px"
           style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }}
         />
+        {!isInitialDetectionDone && isModelsLoaded && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "320px",
+              height: "240px",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 3,
+            }}
+          >
+            <div
+              style={{
+                border: "8px solid rgba(255, 255, 255, 0.3)",
+                borderRadius: "50%",
+                borderTop: "8px solid #fff",
+                width: "60px",
+                height: "60px",
+                animation: "spin 1s linear infinite",
+              }}
+            ></div>
+          </div>
+        )}
         {!isInitialDetectionDone && (
           <div
             style={{

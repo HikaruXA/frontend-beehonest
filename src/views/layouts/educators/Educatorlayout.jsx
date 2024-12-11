@@ -67,8 +67,11 @@ function EducatorLayout() {
 
   // Handle logout and clear userID from localStorage
   const handleLogout = () => {
-    localStorage.removeItem("userID");
-    navigate("/");
+    // Clear all localStorage
+    localStorage.clear();
+
+    // Perform a full page reload to the root path
+    window.location.href = "/";
   };
 
   const handleMenuClick = (item) => {

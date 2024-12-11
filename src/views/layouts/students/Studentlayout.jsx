@@ -46,8 +46,11 @@ function StudentLayout() {
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem("userID");
-    navigate("/");
+    // Clear all localStorage
+    localStorage.clear();
+
+    // Perform a full page reload to the root path
+    window.location.href = "/";
   };
 
   // Handle menu item clicks
