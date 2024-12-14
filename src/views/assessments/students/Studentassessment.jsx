@@ -3,7 +3,7 @@ import styles from "./studentassessment.module.css";
 import Identificationdisplay from "../../identification/students/identificationdisplay/Identificationdisplay";
 import QuizDisplay from "../../quizzes/students/quizdisplay/Quizdisplay";
 import Viewdocs from "../../docs/view/Viewdocs";
-import Warningmodal from "../../../components/warningmodal/warningmodal";
+import Warningmodal from "../../../components/warningmodal/Warningmodal";
 import { useNavigate } from "react-router-dom";
 
 function StudentAssessment({ userID, courseID }) {
