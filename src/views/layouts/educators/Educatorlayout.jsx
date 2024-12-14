@@ -7,6 +7,7 @@ import CreateCourse from "../../courses/educators/create/Createcourse";
 import CreateIdentification from "../../identification/educators/create/Createidentification";
 import Profile from "../../profile/Profile";
 import CreateQuiz from "../../quizzes/educators/create/Createquiz";
+import Report from "../../report/Report";
 import styles from "./educatorlayout.module.css";
 
 function EducatorLayout() {
@@ -23,6 +24,7 @@ function EducatorLayout() {
   const menuItems = [
     { name: "Dashboard", icon: "🏠" },
     { name: "Profile", icon: "👤" },
+    { name: "Reports", icon: "📊" },
     { name: "Logout", icon: "🚪" },
   ];
 
@@ -81,6 +83,9 @@ function EducatorLayout() {
         break;
       case "Dashboard":
         setCurrentView("courses");
+        break;
+      case "Reports":
+        setCurrentView("reports");
         break;
       case "Logout":
         handleLogout();
@@ -167,6 +172,7 @@ function EducatorLayout() {
           />
         )}
         {currentView === "profile" && <Profile userID={userID} />}
+        {currentView === "reports" && <Report userID={userID} />}
       </div>
     </div>
   );
