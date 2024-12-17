@@ -802,7 +802,7 @@ function Report({ userID }) {
   return (
     <div className={styles.reportContainer}>
       <div className={styles.reportHeader}>
-        <h1 className={styles.reportTitle}>Cheating Report</h1>
+        <h1 className={styles.reportTitle}>Cheating Report Module</h1>
         <h2 className={styles.reportSubtitle}>
           <button onClick={downloadPDF} className={styles.downloadButton}>
             Download PDF
