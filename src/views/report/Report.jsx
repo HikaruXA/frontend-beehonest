@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Pie, Line } from "react-chartjs-2";
 import styles from "./report.module.css";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -43,6 +45,51 @@ function Report({ userID }) {
   // New state for MCQ Assessment Cheating Summary
   const [mcqCheatingData, setMcqCheatingData] = useState([]);
   const [mcqLoading, setMcqLoading] = useState(false);
+
+  const downloadPDF = async () => {
+    const input = document.querySelector(`.${styles.reportContainer}`);
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+
+    try {
+      const canvas = await html2canvas(input, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      const imgProps = pdf.getImageProperties(imgData);
+      const imageWidth = pdfWidth - 2 * margin;
+      const imageHeight = (imgProps.height * imageWidth) / imgProps.width;
+
+      // Split the image into pages manually
+      const pageHeight = pdfHeight - 2 * margin;
+
+      for (let position = 0; position < imageHeight; position += pageHeight) {
+        if (position > 0) {
+          pdf.addPage();
+        }
+
+        pdf.addImage(
+          imgData,
+          "PNG",
+          margin,
+          margin - position,
+          imageWidth,
+          imageHeight
+        );
+      }
+
+      pdf.save(`cheating_report_${selectedCourse}.pdf`);
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      alert("Failed to generate PDF. Please try again.");
+    }
+  };
 
   // New state for Course Identification Cheating Summary
   const [
@@ -120,13 +167,7 @@ function Report({ userID }) {
     return (
       <div className={styles.analysisSection}>
         <h3>Least and Most Active</h3>
-        <p>
-          Date Range:{" "}
-          {new Date(cheatingCounts[0].timestamp).toLocaleDateString()} to{" "}
-          {new Date(
-            cheatingCounts[cheatingCounts.length - 1].timestamp
-          ).toLocaleDateString()}
-        </p>
+
         <p>
           Most Active Day: {mostActiveDay.date} with {mostActiveDay.total}{" "}
           incidents
@@ -763,7 +804,9 @@ function Report({ userID }) {
       <div className={styles.reportHeader}>
         <h1 className={styles.reportTitle}>Cheating Report</h1>
         <h2 className={styles.reportSubtitle}>
-          Instructor ID: {instructorID} | Course ID: {selectedCourse}
+          <button onClick={downloadPDF} className={styles.downloadButton}>
+            Download PDF
+          </button>
         </h2>
       </div>
       <div className={styles.courseSelectionContainer}>
