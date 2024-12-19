@@ -16,7 +16,24 @@ function Warningmodal({ isOpen, onClose, onConfirm }) {
           <li>
             Your webcam must be turned on throughout the entire assessment
           </li>
-          <li>The system will monitor for suspicious behaviors</li>
+          <li>
+            The system will monitor for the following suspicious behaviors:
+          </li>
+          <li>
+            <strong>Detected Cheating Indicators:</strong>
+            <ul>
+              <li>Not looking directly at the front/screen</li>
+              <li>Multiple people detected in camera view</li>
+              <li>Unauthorized shortcut key usage</li>
+              <li>Unexpected tab switching</li>
+              <li>No person detected in camera view</li>
+              <li>Smartphone or additional device use</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Important:</strong> The website can verify the identity of
+            the assessment taker through facial recognition.
+          </li>
           <li>Any detected irregularities may result in academic penalties</li>
         </ul>
         <div className={styles.modalButtons}>
