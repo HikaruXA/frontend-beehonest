@@ -177,7 +177,6 @@ function Identificationdetection({ userID, identificationID }) {
       await captureImage(); // Capture image before alert
       const utterance = new SpeechSynthesisUtterance(message);
       speechSynthesis.speak(utterance);
-      alert(message);
     }
   };
 

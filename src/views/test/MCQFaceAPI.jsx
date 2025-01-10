@@ -46,7 +46,7 @@ const LoadingSpinner = ({ size = 50, color = "#007bff" }) => {
   );
 };
 
-const FaceAPI = () => {
+const FaceAPI = ({ userID, mcqID }) => {
   const [userData, setUserData] = useState(null);
   const [mcqImages, setMcqImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,34 +57,34 @@ const FaceAPI = () => {
       fontFamily: "Arial, sans-serif",
     },
     mcqImages: {
-      display: "flex", // Use flexbox for horizontal layout
-      gap: "10px", // Add some spacing between images
-      overflowX: "auto", // Enable horizontal scrolling
-      whiteSpace: "nowrap", // Prevent wrapping of children
-      border: "1px solid #ddd", // Optional border for clarity
+      display: "flex",
+      gap: "10px",
+      overflowX: "auto",
+      whiteSpace: "nowrap",
+      border: "1px solid #ddd",
     },
     imageWrapper: {
       position: "relative",
       display: "inline-block",
-      flex: "0 0 auto", // Prevent shrinking
-      maxWidth: "300px", // Set a reasonable width
-      margin: "0 10px", // Horizontal spacing, no vertical spacing
-      textAlign: "center", // Center-align the content
-      gap: "5px", // Minimal gap between elements
+      flex: "0 0 auto",
+      maxWidth: "300px",
+      margin: "0 10px",
+      textAlign: "center",
+      gap: "5px",
     },
     mcqImage: {
       width: "100%",
       height: "300px",
       objectFit: "contain",
-      margin: "0", // Reset margin
-      padding: "0", // Reset padding
+      margin: "0",
+      padding: "0",
     },
     result: {
       textAlign: "center",
-      margin: "0", // Reset margin
-      padding: "0", // Reset padding
-      fontSize: "14px", // Keep text size consistent
-      lineHeight: "1.2", // Control line height for better spacing
+      margin: "0",
+      padding: "0",
+      fontSize: "14px",
+      lineHeight: "1.2",
     },
     profile: {
       image: {
@@ -117,7 +117,6 @@ const FaceAPI = () => {
   };
 
   const fetchUserData = async () => {
-    const userID = 25;
     try {
       const response = await fetch(
         `https://backend-bhonest-a110b63abc0c.herokuapp.com/user/${userID}`
@@ -143,8 +142,6 @@ const FaceAPI = () => {
   };
 
   const fetchMCQImages = async () => {
-    const mcqID = 30;
-    const userID = 25;
     try {
       const response = await fetch(
         `https://backend-bhonest-a110b63abc0c.herokuapp.com/get-mcq-user-images?mcqID=${mcqID}&userID=${userID}`
@@ -273,7 +270,7 @@ const FaceAPI = () => {
     };
 
     initFaceDetection();
-  }, []);
+  }, [userID, mcqID]); // Add dependencies to useEffect
 
   if (isLoading) {
     return <LoadingSpinner />;
