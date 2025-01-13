@@ -902,7 +902,7 @@ function Report({ userID }) {
                     <td>{startIndex + index + 1}</td>
                     <td>{item.cheatingType}</td>
                     <td>{userDetails[item.userID] || "Loading..."}</td>
-                    <td>{item.timestamp}</td>
+                    <td>{new Date(item.timestamp).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
